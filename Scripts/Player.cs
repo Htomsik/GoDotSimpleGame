@@ -12,15 +12,25 @@ public class Player : KinematicBody2D
     
     private const int GravitySpeed = 20;
 
-    private const int JumpSpeed = 700;
+    private const int JumpSpeed = 400;
+    
+    private const int LevelLimit = 1500;
 
 
     
-    private const string JumpSprite = "Jump";
+    private const string JumpStartSprite = "JumpStart";
+    
+    private const string JumpEndSprite = "JumpEnd";
     
     private const string IdleSprite = "Idle";
     
     private const string WalkSprite = "Walk";
+    
+    private const string SitSprite = "Sit";
+    
+    private const string SitUpSprite = "SitUp";
+    
+  
     
     
     
@@ -29,6 +39,8 @@ public class Player : KinematicBody2D
     private const string MoveRight = "PlayerMoveRight";
 
     private const string MoveJump = "PlayerJump";
+    
+    private const string MoveSit = "PlayerSit";
     
     #endregion
     
@@ -41,6 +53,7 @@ public class Player : KinematicBody2D
     private AnimatedSprite _sprite;
     
     private bool _canDoubleJump = true;
+    
     #endregion
 
     #region Methods
@@ -60,7 +73,7 @@ public class Player : KinematicBody2D
         Jump();
         
         MoveAndSlide(_linearVelocity, _floor);
-
+        
         Animate();
         
         base._PhysicsProcess(delta);
@@ -73,18 +86,33 @@ public class Player : KinematicBody2D
             _sprite.FlipH = _linearVelocity.x < 0;
         }
         
+        if (_linearVelocity.x == 0 && _linearVelocity.y == 0 && Input.IsActionPressed(MoveSit))
+        {
+            _sprite.Play(SitSprite);
+            return;
+        }
+
+        if (_sprite.Animation == SitSprite || (_sprite.Animation == SitUpSprite && _sprite.Frame < _sprite.Frames.GetFrameCount(SitUpSprite)-1))
+        {
+            _sprite.Play(SitUpSprite);
+            return;
+        }
+        
         if (_linearVelocity.x == 0 && _linearVelocity.y == 0)
         {
             _sprite.Play(IdleSprite);
+            return;
         }
         
         if (IsOnFloor() && _linearVelocity.x != 0)
         {
             _sprite.Play(WalkSprite);
+            return;
         }
-        else if (_linearVelocity.y != 0)
+         
+        if (_linearVelocity.y != 0)
         {
-            _sprite.Play(JumpSprite);
+            _sprite.Play(_linearVelocity.y < 0 ? JumpStartSprite : JumpEndSprite);
         }
     }
 
@@ -114,12 +142,16 @@ public class Player : KinematicBody2D
         if (Input.IsActionPressed(MoveLeft) && !highThenMax)
         {
             _linearVelocity.x -=  MoveSpeed;
+            return;
         }
-        else if (Input.IsActionPressed(MoveRight) && !highThenMax)
+        
+        if (Input.IsActionPressed(MoveRight) && !highThenMax)
         {
             _linearVelocity.x  +=  MoveSpeed;
+            return;
         }
-        else if (_linearVelocity.x != 0)
+        
+        if (_linearVelocity.x != 0)
         {
             _linearVelocity.x += _linearVelocity.x > 0 ? -MoveSpeed : MoveSpeed;
         }
@@ -127,10 +159,21 @@ public class Player : KinematicBody2D
 
     private void Gravity()
     {
+        if (Position.y > LevelLimit)
+        {
+            GameOver();
+            return;
+        }
+        
         if (!IsOnFloor())
             _linearVelocity.y += GravitySpeed;
         else
             _linearVelocity.y = 0;
+    }
+
+    private void GameOver()
+    {
+        GetTree().ChangeScene("res://Scenes/Level.tscn");
     }
 
   

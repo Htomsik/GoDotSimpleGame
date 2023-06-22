@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "B:\\Trash\\Workbench\\Repositories\\GodotSimpleGame\\SimpleGame.csproj": {}
+    "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj": {}
   },
   "projects": {
-    "B:\\Trash\\Workbench\\Repositories\\GodotSimpleGame\\SimpleGame.csproj": {
+    "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "B:\\Trash\\Workbench\\Repositories\\GodotSimpleGame\\SimpleGame.csproj",
+        "projectUniqueName": "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj",
         "projectName": "SimpleGame",
-        "projectPath": "B:\\Trash\\Workbench\\Repositories\\GodotSimpleGame\\SimpleGame.csproj",
+        "projectPath": "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj",
         "packagesPath": "C:\\Users\\Jake\\.nuget\\packages\\",
-        "outputPath": "B:\\Trash\\Workbench\\Repositories\\GodotSimpleGame\\.mono\\temp\\obj\\",
+        "outputPath": "B:\\Trash\\Workbench\\GodotSimpleGame\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jake\\AppData\\Roaming\\NuGet\\NuGet.Config"
