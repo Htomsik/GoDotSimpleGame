@@ -14,8 +14,7 @@ public class Player : KinematicBody2D
 
     private const int JumpSpeed = 700;
 
-    private const int levelLimit = 3000;
-    
+
     
     private const string JumpSprite = "Jump";
     
@@ -74,11 +73,18 @@ public class Player : KinematicBody2D
             _sprite.FlipH = _linearVelocity.x < 0;
         }
         
-        _sprite.Play(!IsOnFloor() ? JumpSprite : WalkSprite);
-
         if (_linearVelocity.x == 0 && _linearVelocity.y == 0)
         {
             _sprite.Play(IdleSprite);
+        }
+        
+        if (IsOnFloor() && _linearVelocity.x != 0)
+        {
+            _sprite.Play(WalkSprite);
+        }
+        else if (_linearVelocity.y != 0)
+        {
+            _sprite.Play(JumpSprite);
         }
     }
 
@@ -121,21 +127,13 @@ public class Player : KinematicBody2D
 
     private void Gravity()
     {
-        if (Position.y >= levelLimit)
-        {
-            EndGame();
-        }
-        
         if (!IsOnFloor())
             _linearVelocity.y += GravitySpeed;
         else
             _linearVelocity.y = 0;
     }
 
-    private void EndGame()
-    {
-        GetTree().ChangeScene("res://Scenes/Game over.tscn");
-    }
+  
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
         //  public override void _Process(float delta)
