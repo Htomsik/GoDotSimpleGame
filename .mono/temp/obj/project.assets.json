@@ -420,11 +420,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj",
+      "projectUniqueName": "B:\\Trash\\Workbench\\github.com\\GodotSimpleGame\\SimpleGame.csproj",
       "projectName": "SimpleGame",
-      "projectPath": "B:\\Trash\\Workbench\\GodotSimpleGame\\SimpleGame.csproj",
+      "projectPath": "B:\\Trash\\Workbench\\github.com\\GodotSimpleGame\\SimpleGame.csproj",
       "packagesPath": "C:\\Users\\Jake\\.nuget\\packages\\",
-      "outputPath": "B:\\Trash\\Workbench\\GodotSimpleGame\\.mono\\temp\\obj\\",
+      "outputPath": "B:\\Trash\\Workbench\\github.com\\GodotSimpleGame\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jake\\AppData\\Roaming\\NuGet\\NuGet.Config"

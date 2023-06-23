@@ -7,3 +7,12 @@ B:\Trash\Workbench\Repositories\GodotSimpleGame\.mono\temp\bin\Debug\SimpleGame.
 B:\Trash\Workbench\Repositories\GodotSimpleGame\.mono\temp\bin\Debug\SimpleGame.pdb
 B:\Trash\Workbench\Repositories\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.dll
 B:\Trash\Workbench\Repositories\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.pdb
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\bin\Debug\SimpleGame.dll
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\bin\Debug\SimpleGame.pdb
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.csproj.AssemblyReference.cache
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.GeneratedMSBuildEditorConfig.editorconfig
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.AssemblyInfoInputs.cache
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.AssemblyInfo.cs
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.csproj.CoreCompileInputs.cache
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.dll
+B:\Trash\Workbench\github.com\GodotSimpleGame\.mono\temp\obj\Debug\SimpleGame.pdb
