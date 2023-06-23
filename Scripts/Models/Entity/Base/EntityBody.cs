@@ -48,7 +48,7 @@ namespace SimpleGame.Scripts.Models.Entity
         {
             UpdateLookDirection();
             
-            MoveAndSlide(_data.Velocity.Normalized() * _data.Speed);
+            MoveAndSlide(_data.Velocity.Normalized() * EntityData.Speed);
         } 
 
         private void UpdateLookDirection()

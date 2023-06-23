@@ -1,4 +1,5 @@
 using Godot;
+using SimpleGame.Scripts.Models.Dungeon;
 using SimpleGame.Scripts.Models.Entity;
 
 namespace SimpleGame.Scripts
@@ -7,14 +8,15 @@ namespace SimpleGame.Scripts
     {
         private Player _player;
 
-        private TileMap _dungeon;
+        private Level _level;
         
         public override void _Ready()
         {
+            _level = new Level(new Vector2(100,100));
+            _level.ConnectLevel(this);
+                
             _player = new Player();
-            
-            _dungeon = (TileMap)GetNode("TileMap");
-            _player.ConnectToNode(_dungeon);
+            _player.ConnectToNode(_level.Walls);
         }
     }
 }

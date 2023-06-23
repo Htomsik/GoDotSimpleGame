@@ -24,7 +24,8 @@ namespace SimpleGame.Scripts.Models.Entity
 
             // Делаем камеру текущей для игры
             _camera.Current = true;
-            
+            _camera.Zoom = new Vector2(5, 5);// test
+
             // Добавляем камеру дочерним нодом
             AddChild(_camera);
 
