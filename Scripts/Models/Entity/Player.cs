@@ -1,5 +1,4 @@
 ﻿using Godot;
-using SimpleGame.Scripts.Models.Extensions;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
@@ -15,12 +14,9 @@ namespace SimpleGame.Scripts.Models.Entity
 
         public Player()
         {
-            // Загрузка текстуры в пресонажа
-            Data.Sprite.Texture = ImageLoader.LoadTexture("res://Sprites/Entity/Character Idle 48x48.png", true);
-            
             // Иницилизация 
-            Data.InitBody(1,10, new Vector2(0,-16));
-            Data.InitCollider(3.5f, 3);
+            Data.InitBody( new Vector2(0,0));
+            Data.InitCollider(6f, 18);
 
             // Делаем камеру текущей для игры
             _camera.Current = true;

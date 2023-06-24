@@ -32,7 +32,7 @@ namespace SimpleGame.Scripts.Models.Entity
         
         
         private const int Gravity = 1;
-
+        
         private readonly Vector2 _floor = new Vector2(0, -1);
 
         #endregion
@@ -55,9 +55,8 @@ namespace SimpleGame.Scripts.Models.Entity
             StopMoveApply();
             
             PhysicsProcess?.Invoke(delta);
-
-            if (_data.Velocity != Vector2.Zero) 
-                Move();
+            
+            Move();
         } 
 
         public override void _Process(float delta) => Process?.Invoke(delta);
@@ -69,13 +68,36 @@ namespace SimpleGame.Scripts.Models.Entity
         {
             UpdateLookDirection();
             
+            SetAnimation();
+            
             MoveAndSlide(_data.Velocity.Normalized() * EntityData.Speed, _floor);
         } 
 
         private void UpdateLookDirection()
         {
             if (_data.Velocity.x != 0)
-                _data.Sprite.FlipH = _data.Velocity.x < 0;
+                _data.AnimatedSprite.FlipH = _data.Velocity.x < 0;
+        }
+
+        private void SetAnimation()
+        {
+            if (_data.Velocity.x  == 0 && _data.Velocity.y == 0 )
+            {
+                _data.AnimatedSprite.Play(EntityData.IdleSprite);
+                return;
+            }
+            
+            if (IsOnFloor() && _data.Velocity.x != 0)
+            {
+                _data.AnimatedSprite.Play(EntityData.RunSprite);
+                return;
+            }
+
+            if (!IsOnFloor() && Math.Abs(_data.Velocity.y) > 1)
+            {
+                _data.AnimatedSprite.Play(_data.Velocity.y < 0 ? EntityData.JumpStartSprite : EntityData.JumpEndSprite);
+                return;
+            }
         }
         
         #region Сопротивления движению
@@ -99,8 +121,15 @@ namespace SimpleGame.Scripts.Models.Entity
                 return;
             }
             
+            
             if (IsOnFloor())
             {
+                if (Math.Abs(_data.Velocity.x) <= 1)
+                {
+                    _data.Velocity.x += _data.Velocity.x > 0 ? - _data.Velocity.x  : _data.Velocity.x;
+                    return;
+                }
+                
                 _data.Velocity.x +=  _data.Velocity.x > 0 ? -StopRunFloorPower : StopRunFloorPower;
                 return;
             }
@@ -143,11 +172,7 @@ namespace SimpleGame.Scripts.Models.Entity
         }
         
         #endregion
-
-       
         
-        
-
         #endregion
     }
 }

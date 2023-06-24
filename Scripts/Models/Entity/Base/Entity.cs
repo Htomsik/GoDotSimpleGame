@@ -21,7 +21,7 @@ namespace SimpleGame.Scripts.Models.Entity
             Body = new EntityBody(Data);
             
             // Инициализируем дочерние ноды
-            AddChild(Data.Sprite);
+            AddChild(Data.AnimatedSprite);
             AddChild(Data.Collider);
             
             Body.PhysicsProcess = PhysicsProcess;
