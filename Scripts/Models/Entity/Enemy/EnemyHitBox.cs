@@ -9,6 +9,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
     public class EnemyHitBox : Area2D, IEnemyHitbox
     {
         public Action<float> Damage { get; set; }
+        
 
         public EntityCollider Collider { get; set; } = new EntityCollider();
         

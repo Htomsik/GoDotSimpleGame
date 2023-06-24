@@ -23,7 +23,6 @@ namespace SimpleGame.Scripts.Models.Hit
         }
         
         
-        
         public void SetPosition(Vector2 pos)
         {
             Body.GlobalPosition = pos;

@@ -1,12 +1,17 @@
-﻿using Godot;
+﻿using System;
+using Godot;
+using SimpleGame.Scripts.Models.Entity;
 using SimpleGame.Scripts.Models.Entity.Enemy;
-using SimpleGame.Scripts.Models.Extensions;
+
 
 namespace SimpleGame.Scripts.Models.Hit
 {
-    public class HitHitBox : EnemyHitBox
+    public class HitHitBox : Area2D
     {
-
+        public Action<Action<float>> SetDamage { get; set; }
+        
+        public EntityCollider Collider { get; set; } = new EntityCollider();
+        
         public HitHitBox()
         {
             Connect("area_entered",this, nameof(AreaEntered));
@@ -16,7 +21,7 @@ namespace SimpleGame.Scripts.Models.Hit
         {
             if (area2D is IEnemyHitbox entityHitBox)
             {
-                entityHitBox.GetDamage(10);
+                SetDamage?.Invoke(entityHitBox.GetDamage);
             }
         }
     }

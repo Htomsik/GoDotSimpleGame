@@ -34,7 +34,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             }
         }
         
-        private float _hp;
+        private float _hp = 100;
 
         #endregion
        
