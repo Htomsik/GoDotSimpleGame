@@ -48,11 +48,15 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         {
             Hp = 100;
 
-            HitBox.Damage += damage => Hp -=  damage;
+            HitBox.Damage += (damage, _) =>
+            {
+                Hp -= damage;
+            };
         }
 
         #endregion
-        
+
+
         
         public override void InitBody(Vector2 offsetPos)
         {

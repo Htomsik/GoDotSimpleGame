@@ -8,9 +8,9 @@ namespace SimpleGame.Scripts.Models.Hit
     /// </summary>
     public class Hit : INode
     {
-        public HitData Data { get; protected set; } = new HitData();
+         public HitData Data { get; protected set; } = new HitData();
 
-        public HitBody Body { get; protected set; }
+         public HitBody Body { get; protected set; }
 
         public Hit()
         {
@@ -18,8 +18,15 @@ namespace SimpleGame.Scripts.Models.Hit
             
             AddChild(Data.HitBox);
 
-            Data.Collider.ChangeSize(8f, 18);
-            Data.HitBox.Collider.ChangeSize(8f,18);
+            Data.Collider.ChangeSize(2f, 1);
+            Data.HitBox.Collider.ChangeSize(2f,1);
+            
+            Data.HitBox.SetDamage += action => action?.Invoke(Data.DamagePower, Body.GlobalPosition);
+        }
+
+        public void ChangeLifeTime(float lifeTime)
+        {
+            Data.LifeTime = lifeTime;
         }
         
         
@@ -35,6 +42,5 @@ namespace SimpleGame.Scripts.Models.Hit
         public void AddChild(Node child) =>  Body.AddChild(child);
         
         public void RemoveChild(Node child) =>  Body.RemoveChild(child);
-        
     }
 }

@@ -11,24 +11,14 @@ namespace SimpleGame.Scripts.Models.Entity
         
         public EntityCollider Collider { get; set; } = new EntityCollider();
         
-        
         public Vector2 Velocity = new Vector2();
 
         public const float Speed = 120;
-        
-        #endregion
 
+        public Timer JubTimer { get; set; } = new Timer();
         
-        #region Fields
-
-        public const string RunSprite = "Run";
+        public Timer HurtTimer { get; set; } = new Timer();
         
-        public const string IdleSprite = "Idle";
-        
-        public const string JumpStartSprite = "JumpStart";
-        
-        public const string JumpEndSprite = "JumpEnd";
-
         #endregion
 
         
@@ -41,13 +31,18 @@ namespace SimpleGame.Scripts.Models.Entity
 
             AnimatedSprite.Frames = new SpriteFrames();
             
-            AnimatedSprite.Frames.LoadAnimationFrames(IdleSprite, "res://Sprites/Entity/Character Idle 48x48.png", true, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.IdleSprite, "res://Sprites/Entity/Character Idle 48x48.png", true, true);
             
-            AnimatedSprite.Frames.LoadAnimationFrames(RunSprite, "res://Sprites/Entity/run cycle 48x48.png", true, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.RunSprite, "res://Sprites/Entity/run cycle 48x48.png", true, true);
             
-            AnimatedSprite.Frames.LoadAnimationFrames(JumpStartSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 1, 1);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpStartSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 1, 1);
             
-            AnimatedSprite.Frames.LoadAnimationFrames(JumpEndSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 3,3);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpEndSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 3,3);
+            
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JubSprite,"res://Sprites/Entity/Player Jab 48x48.png", true, true);
+            AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.JubSprite,16f);
+            
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.HurtSprite,"res://Sprites/Entity/Player Hurt 48x48.png", true, true);
         }
 
         #endregion

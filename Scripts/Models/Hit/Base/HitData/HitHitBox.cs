@@ -8,12 +8,13 @@ namespace SimpleGame.Scripts.Models.Hit
 {
     public class HitHitBox : Area2D
     {
-        public Action<Action<float>> SetDamage { get; set; }
+        public Action<Action<float, Vector2>> SetDamage { get; set; }
         
         public EntityCollider Collider { get; set; } = new EntityCollider();
         
         public HitHitBox()
         {
+            AddChild(Collider);
             Connect("area_entered",this, nameof(AreaEntered));
         }
         

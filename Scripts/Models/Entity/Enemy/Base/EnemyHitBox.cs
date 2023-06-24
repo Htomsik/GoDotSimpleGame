@@ -8,9 +8,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
     /// </summary>
     public class EnemyHitBox : Area2D, IEnemyHitbox
     {
-        public Action<float> Damage { get; set; }
+        public Action<float, Vector2> Damage { get; set; }
         
-
         public EntityCollider Collider { get; set; } = new EntityCollider();
         
         public EnemyHitBox()
@@ -18,9 +17,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             AddChild(Collider);
         }
 
-        public void GetDamage(float damage)
+        public void GetDamage(float damage, Vector2 damagePosition)
         {
-            Damage?.Invoke(damage);
+            Damage?.Invoke(damage, damagePosition);
         }
     }
 }

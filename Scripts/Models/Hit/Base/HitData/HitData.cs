@@ -8,6 +8,8 @@ namespace SimpleGame.Scripts.Models.Hit
 
         public float DamagePower { get; set; } = 10;
 
+        public float LifeTime { get; set; } = 0.1f;
+
         #endregion
         
         #region Физические объекты
@@ -16,10 +18,6 @@ namespace SimpleGame.Scripts.Models.Hit
 
         #endregion
 
-        public HitData()
-        {
-            HitBox.SetDamage += action => action?.Invoke(DamagePower);
-        }
         
     }
 }

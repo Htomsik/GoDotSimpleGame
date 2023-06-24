@@ -23,16 +23,18 @@ namespace SimpleGame.Scripts
 
             _enemy = new Enemy();
             _enemy.ConnectToNode(_level.Walls);
-            _enemy.SetPosition(new Vector2(10, -100));
+            _enemy.SetPosition(new Vector2(100, -100));
             
             
             _player = new Player();
             _player.ConnectToNode(_level.Walls);
-            _player.SetPosition(new Vector2(50,-100));
+            _player.SetPosition(new Vector2(10,-100));
 
-            _hit = new Hit();
-            _level.Walls.AddChild(_hit.Body);
-            _hit.SetPosition(new Vector2(100,-20));
+            // _hit = new Hit();
+            //
+            // _hit.ChangeLifeTime(10f);
+            // _level.Walls.AddChild(_hit.Body);
+            // _hit.SetPosition(new Vector2(100,-20));
 
         }
     }

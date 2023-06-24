@@ -35,6 +35,12 @@ namespace SimpleGame.Scripts.Models.Entity
             Body.Run(Godot.Input.GetActionStrength("Right") - Godot.Input.GetActionStrength("Left"));
             
             Body.Jump(Godot.Input.GetActionStrength("Jump"), false);
+
+            if (Godot.Input.IsActionJustPressed("Jub"))
+            {
+                Jub();
+            }
+           
         }
 
         #endregion

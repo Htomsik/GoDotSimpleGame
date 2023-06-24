@@ -44,17 +44,17 @@ namespace SimpleGame.Scripts.Models.Entity
             AddChild(Data.Collider);
         }
         
-        public void PhysicsProcess(float delta)
+        public virtual void PhysicsProcess(float delta)
         {
             
         }
         
-        public void Process(float delta)
+        public virtual void Process(float delta)
         {
             
         }
         
-        public void Input(InputEvent ev)
+        public  void Input(InputEvent ev)
         {
             
         }
