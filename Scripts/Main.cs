@@ -12,11 +12,13 @@ namespace SimpleGame.Scripts
         
         public override void _Ready()
         {
-            _level = new Level(new Vector2(100,100));
+            _level = new Level(new Vector2(100,10));
             _level.ConnectLevel(this);
                 
             _player = new Player();
             _player.ConnectToNode(_level.Walls);
+            
+            _player.SetPosition(_level.Center);
         }
     }
 }

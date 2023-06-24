@@ -16,7 +16,7 @@ namespace SimpleGame.Scripts.Models.Entity
         public Vector2 Velocity = new Vector2();
 
         public const float Speed = 120;
-
+        
         #endregion
 
         #region Constructors
@@ -25,7 +25,7 @@ namespace SimpleGame.Scripts.Models.Entity
         {
             Collider.Shape = Shape;
             Collider.RotationDegrees = 90;
-            Collider.Disabled = true;//test
+            //Collider.Disabled = true;//test
         }
 
         #endregion

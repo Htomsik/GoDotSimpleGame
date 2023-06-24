@@ -24,7 +24,7 @@ namespace SimpleGame.Scripts.Models.Entity
 
             // Делаем камеру текущей для игры
             _camera.Current = true;
-            _camera.Zoom = new Vector2(5, 5);// test
+            //_camera.Zoom = new Vector2(5, 5);// test
 
             // Добавляем камеру дочерним нодом
             AddChild(_camera);
@@ -40,8 +40,9 @@ namespace SimpleGame.Scripts.Models.Entity
         
         private void GetInputDirection()
         {
-            Data.Velocity.x = Godot.Input.GetActionStrength("Right") - Godot.Input.GetActionStrength("Left");
-            Data.Velocity.y = Godot.Input.GetActionStrength("Down") - Godot.Input.GetActionStrength("Up");
+            Body.Run(Godot.Input.GetActionStrength("Right") - Godot.Input.GetActionStrength("Left"));
+            
+            Body.Jump(Godot.Input.GetActionStrength("Jump"), false);
         }
 
         #endregion

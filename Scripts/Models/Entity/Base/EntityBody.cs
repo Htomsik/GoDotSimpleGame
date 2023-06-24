@@ -19,6 +19,22 @@ namespace SimpleGame.Scripts.Models.Entity
 
         private readonly EntityData _data;
         
+        private const int JumpPower = 16;
+        
+        
+        private const int RunPower = 16;
+        
+        private const int StopRunFloorPower = 2;
+        
+        private const int StopRunAirPower = 1;
+
+        private const int MaxRunPower = 24;
+        
+        
+        private const int Gravity = 1;
+
+        private readonly Vector2 _floor = new Vector2(0, -1);
+
         #endregion
 
         #region Constructors
@@ -34,9 +50,13 @@ namespace SimpleGame.Scripts.Models.Entity
 
         public override void _PhysicsProcess(float delta)
         {
-            PhysicsProcess?.Invoke(delta);
+            GravityApply();
             
-            if (_data.Velocity != Vector2.Zero)
+            StopMoveApply();
+            
+            PhysicsProcess?.Invoke(delta);
+
+            if (_data.Velocity != Vector2.Zero) 
                 Move();
         } 
 
@@ -44,11 +64,12 @@ namespace SimpleGame.Scripts.Models.Entity
 
         public override void _Input(InputEvent ev) => Input?.Invoke(ev);
 
+        
         private void Move()
         {
             UpdateLookDirection();
             
-            MoveAndSlide(_data.Velocity.Normalized() * EntityData.Speed);
+            MoveAndSlide(_data.Velocity.Normalized() * EntityData.Speed, _floor);
         } 
 
         private void UpdateLookDirection()
@@ -56,6 +77,75 @@ namespace SimpleGame.Scripts.Models.Entity
             if (_data.Velocity.x != 0)
                 _data.Sprite.FlipH = _data.Velocity.x < 0;
         }
+        
+        #region Сопротивления движению
+
+        private void GravityApply()
+        {
+            if (IsOnFloor())
+            {
+                _data.Velocity.y = 0;
+            }
+            else
+            {
+                _data.Velocity.y += Gravity;
+            }
+        }
+
+        private void StopMoveApply()
+        {
+            if (_data.Velocity.x == 0)
+            {
+                return;
+            }
+            
+            if (IsOnFloor())
+            {
+                _data.Velocity.x +=  _data.Velocity.x > 0 ? -StopRunFloorPower : StopRunFloorPower;
+                return;
+            }
+            
+            _data.Velocity.x +=  _data.Velocity.x > 0 ? -StopRunAirPower : StopRunAirPower;
+        }
+
+
+        #endregion
+
+        #region Движения
+
+        public void Jump(float jumpRate = 1.0f, bool ignoreFloor = false)
+        {
+            if (!ignoreFloor && !IsOnFloor()) return;
+            
+            if (_data.Velocity.x != 0)
+            {
+                _data.Velocity.y -= JumpPower* jumpRate * 1.5f;
+            }
+            else
+            {
+                _data.Velocity.y -= JumpPower* jumpRate;
+            }
+        }
+        
+        public void Run(float runRate = 1.0f)
+        {
+            if (!(Math.Abs(_data.Velocity.x) < MaxRunPower)) return;
+            
+            
+            if (IsOnFloor())
+            {
+                _data.Velocity.x += RunPower * runRate;
+            }
+            else
+            {
+                _data.Velocity.x += runRate;
+            }
+        }
+        
+        #endregion
+
+       
+        
         
 
         #endregion

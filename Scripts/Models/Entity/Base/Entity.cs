@@ -47,6 +47,11 @@ namespace SimpleGame.Scripts.Models.Entity
         {
             
         }
+
+        public void SetPosition(Vector2 pos)
+        {
+            Body.GlobalPosition = pos;
+        }
         
         #region Node extensions
         
