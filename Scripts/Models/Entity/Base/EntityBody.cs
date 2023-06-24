@@ -28,7 +28,7 @@ namespace SimpleGame.Scripts.Models.Entity
         
         private const int StopRunAirPower = 1;
 
-        private const int MaxRunPower = 24;
+        private const int MaxRunPower = 16;
         
         
         private const int Gravity = 1;
@@ -148,17 +148,17 @@ namespace SimpleGame.Scripts.Models.Entity
             
             if (_data.Velocity.x != 0)
             {
-                _data.Velocity.y -= JumpPower* jumpRate * 1.5f;
+                _data.Velocity.y -= JumpPower * jumpRate * 1.5f;
             }
             else
             {
-                _data.Velocity.y -= JumpPower* jumpRate;
+                _data.Velocity.y -= JumpPower * jumpRate;
             }
         }
         
         public void Run(float runRate = 1.0f)
         {
-            if (!(Math.Abs(_data.Velocity.x) < MaxRunPower)) return;
+            if (Math.Abs(_data.Velocity.x) >= MaxRunPower) return;
             
             
             if (IsOnFloor())

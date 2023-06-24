@@ -2,7 +2,7 @@
 
 namespace SimpleGame.Scripts.Models.Entity
 {
-    public class Player : Entity
+    public class Player : Enemy.Enemy
     {
         #region Fields
 
@@ -14,10 +14,6 @@ namespace SimpleGame.Scripts.Models.Entity
 
         public Player()
         {
-            // Иницилизация 
-            Data.InitBody( new Vector2(0,0));
-            Data.InitCollider(6f, 18);
-
             // Делаем камеру текущей для игры
             _camera.Current = true;
             //_camera.Zoom = new Vector2(5, 5);// test

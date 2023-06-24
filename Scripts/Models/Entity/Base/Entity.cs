@@ -1,14 +1,15 @@
 ﻿using Godot;
+using SimpleGame.Scripts.Models.CustomNode;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
-    public class Entity
+    public class Entity : INode
     {
         #region Fields
 
-        protected readonly EntityBody Body;
+        protected EntityBody Body;
 
-        protected readonly EntityData Data;
+        protected EntityData Data;
 
         #endregion
         
@@ -16,23 +17,33 @@ namespace SimpleGame.Scripts.Models.Entity
 
         public Entity()
         {
-            // Инициализируем основу
-            Data = new EntityData();
-            Body = new EntityBody(Data);
+            InitializeData();
             
-            // Инициализируем дочерние ноды
-            AddChild(Data.AnimatedSprite);
-            AddChild(Data.Collider);
+            InitializeChild();
             
             Body.PhysicsProcess = PhysicsProcess;
             Body.Process = Process;
             Body.Input = Input;
+            
         }
 
         #endregion
 
         #region Methods
 
+        protected virtual void InitializeData()
+        {
+            Data = new EntityData();
+            Body = new EntityBody(Data);
+        }
+
+        protected virtual void InitializeChild()
+        {
+            // Инициализируем дочерние ноды
+            AddChild(Data.AnimatedSprite);
+            AddChild(Data.Collider);
+        }
+        
         public void PhysicsProcess(float delta)
         {
             
