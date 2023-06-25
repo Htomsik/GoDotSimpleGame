@@ -60,14 +60,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public override void InitBody(Vector2 offsetPos)
         {
-            
-            var rectScale = 0.5f;
+            var rectScale = 0.3f;
             
             HpBar.TextureProgress_ = ImageLoader.LoadTexture("res://Sprites/HpBar/HpBar.png");
             
             HpBar.RectScale = new Vector2(rectScale, rectScale);
             
-            HpBar.RectPosition = new Vector2(- HpBar.TextureProgress_.GetWidth() /2 * rectScale, - Collider.ColliderShape.Height * 1.1f);
+            HpBar.RectPosition = new Vector2(- HpBar.TextureProgress_.GetWidth() /2f * rectScale, - Collider.ColliderShape.Height * 1.1f);
             
             base.InitBody(offsetPos);
         }

@@ -8,21 +8,19 @@ namespace SimpleGame.Scripts.Models.Dungeon
 
         public TileMap Walls { get; private set; } = new TileMap();
 
-        public TileMap Floor { get; private set; } = new TileMap();
-        
         #endregion
 
         #region Fields
 
-        #region tileParams
-
         private const int TileSize = 16;
 
         private readonly Vector2 _size;
-
-        #endregion
-
+        
         public Vector2 Center { get; private set; }
+        
+        public Vector2 Start { get; private set; }
+        
+        public Vector2 End { get; private set; }
         
         #endregion
 
@@ -34,24 +32,19 @@ namespace SimpleGame.Scripts.Models.Dungeon
             
             Center = new Vector2(_size.x * TileSize/2, _size.y * TileSize /2);
             
-            Floor.CellSize = new Vector2(TileSize, TileSize);
-            Walls.CellSize = new Vector2(TileSize, TileSize);
-
-            // Центрировние чтобы персонаж перекрывался тайлами уходя за их стенки
-            Walls.CellTileOrigin = TileMap.TileOrigin.Center;
-            Walls.CellYSort = true;
-
-            Walls.TileSet = (TileSet)ResourceLoader.Load("res://Resources/TileSets/Wall.tres");
-            Floor.TileSet = (TileSet)ResourceLoader.Load("res://Resources/TileSets/Floor.tres");
+            Start = new Vector2(_size.x + TileSize, _size.y * TileSize - TileSize * 2);
             
+            End = new Vector2(_size.x * TileSize - TileSize * 2, _size.y * TileSize - TileSize * 2) ;
+            
+            Walls.CellSize = new Vector2(TileSize, TileSize);
+            
+            Walls.TileSet = (TileSet)ResourceLoader.Load("res://Resources/TileSets/Wall.tres");
             GenerateLevel();
         }
 
         #endregion
 
         #region Methods
-
-        #region Level
         
         private void GenerateLevel()
         {
@@ -80,11 +73,7 @@ namespace SimpleGame.Scripts.Models.Dungeon
         {
             parent.AddChild(Walls);
         }
-
-        #endregion
-
         
         #endregion
-        
     }
 }

@@ -17,10 +17,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             
             // Иницилизация 
             Data.InitBody( new Vector2(0,0));
-            Data.Collider.ChangeSize(9f, 16);
-            EnemyData.HitBox.Collider.ChangeSize(9f, 16);
-
-
+            Data.Collider.ChangeSize(8f, 16);
+            EnemyData.HitBox.Collider.ChangeSize(9f, 17);
+            
             EnemyData.Dead += Dead;
             
             EnemyData.HitBox.Damage += (damage, damagePosition) =>
@@ -60,14 +59,14 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             var hit = new Hit.Hit();
 
             Vector2 jubPosition;
-
+            
             if (Data.AnimatedSprite.FlipH)
             {
-                jubPosition = new Vector2(Data.Collider.Position.x - 20, Data.Collider.Position.y);
+                jubPosition = new Vector2(Data.Collider.Position.x - 15, Data.Collider.Position.y);
             }
             else
             {
-                jubPosition = new Vector2(Data.Collider.Position.x + 20, Data.Collider.Position.y);
+                jubPosition = new Vector2(Data.Collider.Position.x + 15, Data.Collider.Position.y);
             }
             
             hit.SetPosition(jubPosition);
