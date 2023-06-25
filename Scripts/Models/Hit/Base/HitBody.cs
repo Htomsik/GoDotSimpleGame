@@ -1,38 +1,32 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 namespace SimpleGame.Scripts.Models.Hit
 {
+    /// <summary>
+    ///     Тело Удара
+    /// <remarks>Отвечает за физические процессы, анимации и тд.</remarks>
+    /// </summary>
     public class HitBody : KinematicBody2D
     {
+        #region Actions
+
+        public Action Ready { get; set; }
+        
+        public Action PhysicsProcess { get; set; }
+
+        #endregion
+        
+        
         private readonly HitData _data;
-
-        private readonly Timer _jubTimer = new Timer();
-
+        
         public HitBody(HitData data)
         {
             _data = data;
-            
-            AddChild(_jubTimer);
         }
 
-        public override void _PhysicsProcess(float delta)
-        {
-            if (_jubTimer.TimeLeft <= 0)
-            {
-                QueueFree();
-                return;
-            }
-            
-            base._PhysicsProcess(delta);
-        }
-
-        public override void _Ready()
-        {
-            _jubTimer.Start(_data.LifeTime);
-            _jubTimer.OneShot = true;
-            
-            
-            base._Ready();
-        }
+        public override void _PhysicsProcess(float delta) => PhysicsProcess?.Invoke();
+        
+        public override void _Ready() =>  Ready?.Invoke();
     }
 }
