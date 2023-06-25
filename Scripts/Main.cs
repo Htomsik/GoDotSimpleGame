@@ -2,7 +2,7 @@ using Godot;
 using SimpleGame.Scripts.Models.Dungeon;
 using SimpleGame.Scripts.Models.Entity;
 using SimpleGame.Scripts.Models.Entity.Enemy;
-using SimpleGame.Scripts.Models.Hit;
+
 
 namespace SimpleGame.Scripts
 {
@@ -11,9 +11,7 @@ namespace SimpleGame.Scripts
         private Player _player;
 
         private Enemy _enemy;
-
-        private Hit _hit;
-
+        
         private Level _level;
         
         public override void _Ready()

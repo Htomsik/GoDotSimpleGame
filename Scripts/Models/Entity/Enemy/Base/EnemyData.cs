@@ -6,15 +6,14 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
     public class EnemyData : EntityData
     {
-        #region Properties
-
-        public TextureProgress HpBar { get; private set; } = new TextureProgress();
-        
-        public EnemyHitBox HitBox { get; private set; } = new EnemyHitBox();
+        #region Свйоства сущности
         
         public Action Dead { get; set; }
+        
+        public bool IsDead { get; set; } = false;
 
-
+        public float DeadTime { get; protected set; } = 0.5f;
+        
         #region HP
 
         public float Hp
@@ -23,14 +22,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
             set
             {
+                _hp = value;
+                HpBar.Value = _hp;
+                
                 if (_hp <= 0 )
                 {
                     Dead?.Invoke();
-                    return;
                 }
-                
-                _hp = value;
-                HpBar.Value = _hp;
             }
         }
         
@@ -40,35 +38,38 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
        
 
         #endregion
+
+
+        #region Физические объекты
+
+        public TextureProgress HpBar { get; protected set; } = new TextureProgress();
+
+        public Vector2 HpBarScale { get; protected set; } = new (0.3f, 0.3f);
         
+        public EnemyHitBox HitBox { get; protected set; } = new EnemyHitBox();
+        
+        public Timer DeadTimer { get; protected set; } = new Timer();
+        
+        #endregion
         
         #region Constructors
 
         public EnemyData()
         {
             Hp = 100;
-
-            HitBox.Damage += (damage, _) =>
-            {
-                Hp -= damage;
-            };
         }
 
         #endregion
 
-
-        
-        public override void InitBody(Vector2 offsetPos)
+        public override void InitTextures(Vector2 offsetPos)
         {
-            var rectScale = 0.3f;
-            
             HpBar.TextureProgress_ = ImageLoader.LoadTexture("res://Sprites/HpBar/HpBar.png");
+
+            HpBar.RectScale = HpBarScale;
             
-            HpBar.RectScale = new Vector2(rectScale, rectScale);
+            HpBar.RectPosition = new Vector2(- HpBar.TextureProgress_.GetWidth() /2f * HpBarScale.x, - Collider.ColliderShape.Height * 1.1f);
             
-            HpBar.RectPosition = new Vector2(- HpBar.TextureProgress_.GetWidth() /2f * rectScale, - Collider.ColliderShape.Height * 1.1f);
-            
-            base.InitBody(offsetPos);
+            base.InitTextures(offsetPos);
         }
     }
 }
