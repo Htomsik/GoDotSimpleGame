@@ -10,8 +10,10 @@
         
         public const string JumpEndSprite = "JumpEnd";
         
-        public const string JubSprite = "Jub";
+        public const string PunchSprite = "Punch";
         
         public const string HurtSprite = "Hurt";
+
+        public const string DeadSprite = "Dead";
     }
 }

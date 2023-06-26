@@ -5,7 +5,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy;
 
 public class EnemyBody : EntityBody<EnemyData>
 {
-    
     public bool CanJub()
     {
         if (Data.PunchTimer.TimeLeft > 0)
@@ -23,15 +22,33 @@ public class EnemyBody : EntityBody<EnemyData>
         base.Run(runRate);
     }
 
+    public override void _PhysicsProcess(float delta)
+    {
+        if (Data.DeadTimer.TimeLeft > 0 || Data.PunchTimer.TimeLeft > 0)
+        {
+            Data.Velocity.x = 0;
+        }
+        
+        base._PhysicsProcess(delta);
+    }
+
     protected override void SetAnimation()
     {
+        if (Data.DeadTimer.TimeLeft > 0)
+        {
+            Data.AnimatedSprite.Play(EntitySpriteNames.DeadSprite);
+            Data.Velocity.x = 0;
+            return;
+        }
+        
         if (Data.PunchTimer.TimeLeft > 0)
         {
-            Data.AnimatedSprite.Play(EntitySpriteNames.JubSprite);
+            Data.AnimatedSprite.Play(EntitySpriteNames.PunchSprite);
             Data.Velocity.x = 0;
             return;
         }
 
         base.SetAnimation();
     }
+    
 }

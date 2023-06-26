@@ -147,7 +147,6 @@ namespace SimpleGame.Scripts.Models.Entity
             {
                 Data.Velocity.x += kickBackPower;
             }
-            
         }
         
         public virtual void Run(float runRate = 1.0f)

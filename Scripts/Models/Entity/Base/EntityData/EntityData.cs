@@ -30,18 +30,16 @@ namespace SimpleGame.Scripts.Models.Entity
         
         public virtual void InitTextures(Vector2 offsetPos)
         {
+            const string entitySpritePath = "res://Sprites/Entity/";
+            
             AnimatedSprite.Position = offsetPos;
-
             AnimatedSprite.Frames = new SpriteFrames();
             
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.IdleSprite, "res://Sprites/Entity/Character Idle 48x48.png", true, true);
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.RunSprite, "res://Sprites/Entity/run cycle 48x48.png", true, true);
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpStartSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 1, 1);
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpEndSprite, "res://Sprites/Entity/player jump 48x48.png", false, true, 3,3);
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.HurtSprite,"res://Sprites/Entity/Player Hurt 48x48.png", true, true);
-            
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JubSprite,"res://Sprites/Entity/Player Jab 48x48.png", true, true);
-            AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.JubSprite,16f);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.IdleSprite, entitySpritePath + "Entity_Idle.png", true, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.RunSprite, entitySpritePath + "Entity_Run.png", true, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpStartSprite, entitySpritePath + "Entity_Jump.png", false, true, 1, 1);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpEndSprite, entitySpritePath + "Entity_Jump.png", false, true, 3,3);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.HurtSprite,entitySpritePath + "Entity_Hurt.png", true, true);
         }
 
         #endregion

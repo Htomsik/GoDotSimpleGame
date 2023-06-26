@@ -11,8 +11,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         public Action Dead { get; set; }
         
         public bool IsDead { get; set; } = false;
-
-        public float DeadTime { get; protected set; } = 0.5f;
         
         public float Hp
         {
@@ -32,6 +30,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         private float _hp = 100;
         
         public float PunchTime { get; protected set; } = 0.3f;
+        
+        public float DeadTime { get; protected set; } = 2f;
         
         #endregion
 
@@ -61,13 +61,17 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public override void InitTextures(Vector2 offsetPos)
         {
-            HpBar.TextureProgress_ = ImageLoader.LoadTexture("res://Sprites/HpBar/HpBar.png");
-
-            HpBar.RectScale = HpBarScale;
+            base.InitTextures(offsetPos);
             
+            const string enemySpritePath = "res://Sprites/Enemy/";
+            
+            HpBar.TextureProgress_ = ImageLoader.LoadTexture(enemySpritePath + "Enemy_HpBar.png");
+            HpBar.RectScale = HpBarScale;
             HpBar.RectPosition = new Vector2(- HpBar.TextureProgress_.GetWidth() /2f * HpBarScale.x, - Collider.ColliderShape.Height * 1.1f);
             
-            base.InitTextures(offsetPos);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.DeadSprite, enemySpritePath + "Enemy_Death.png", false, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PunchSprite,enemySpritePath + "Enemy_Punch.png", true, true);
+            AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.PunchSprite,16f);
         }
     }
 }

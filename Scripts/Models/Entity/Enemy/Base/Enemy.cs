@@ -15,7 +15,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             Data.Collider.ChangeSize(8f, 16);
             Data.HitBox.Collider.ChangeSize(9f, 17);
             
-            
             AddChild(Data.PunchTimer);
             
             // Получение урона
