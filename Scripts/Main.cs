@@ -1,6 +1,5 @@
 using Godot;
 using SimpleGame.Scripts.Models.Dungeon;
-using SimpleGame.Scripts.Models.Entity;
 using SimpleGame.Scripts.Models.Entity.Enemy;
 
 
@@ -16,17 +15,17 @@ namespace SimpleGame.Scripts
         
         public override void _Ready()
         {
-            _level = new Level(new Vector2(20,20));
+            _level = new Level(new Vector2(100,15));
             _level.ConnectLevel(this);
 
             _enemy = new Enemy();
             _enemy.ConnectToNode(_level.Walls);
-            _enemy.SetPosition(_level.End);
+            _enemy.SetPosition(_level.Center);
             
             
             _player = new Player();
             _player.ConnectToNode(_level.Walls);
-            _player.SetPosition(_level.Start);
+            _player.SetPosition(_level.Center * 1.1f);
             
         }
     }

@@ -15,5 +15,11 @@
         public const string HurtSprite = "Hurt";
 
         public const string DeadSprite = "Dead";
+
+        public const string PistolShootSprite = "PistolShoot";
+        
+        public const string PistolBulletSprite = "PistolShoot";
     }
+    
+  
 }

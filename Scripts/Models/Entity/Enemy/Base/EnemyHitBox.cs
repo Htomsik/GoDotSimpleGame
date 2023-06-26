@@ -17,9 +17,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             AddChild(Collider);
         }
 
-        public void GetDamage(float damage, Vector2 damagePosition)
+        public void GetDamage(float damage, Vector2 damageRotation)
         {
-            Damage?.Invoke(damage, damagePosition);
+            Damage?.Invoke(damage, damageRotation);
         }
     }
 }

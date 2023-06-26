@@ -7,7 +7,7 @@ namespace SimpleGame.Scripts.Models.Hit
     ///     Удар
     /// <remarks>   Принимает информацию из данных, обрабатывает и передает телу и данным</remarks>
     /// </summary>
-    public abstract class Hit<THitData, THitbody> : INode
+    public abstract class Hit<THitData, THitbody> : INode, IHit
         where THitData : HitData
         where THitbody : HitBody<THitData>
     {
@@ -25,15 +25,19 @@ namespace SimpleGame.Scripts.Models.Hit
             
             AddChild(Data.HitBox);
             AddChild(Data.LifeTimer);
+            AddChild(Data.AnimatedSprite);
 
             Data.Collider.ChangeSize(2f, 1);
             Data.HitBox.Collider.ChangeSize(2f,1);
             
-            Data.HitBox.SetDamage += action => action?.Invoke(Data.DamagePower, Body.GlobalPosition);
+            Data.HitBox.SetDamage += action =>
+            {
+                action?.Invoke(Data.DamagePower, Data.Direction);
+                data.LifeTimer.Start(0);
+            };
             Body.PhysicsProcess += PhysicsProcess;
         }
-
-
+        
         #region Обработчики тиков
 
         protected virtual void Ready()
@@ -58,6 +62,17 @@ namespace SimpleGame.Scripts.Models.Hit
         public void ChangeLifeTime(float lifeTime)
         {
             Data.LifeTime = lifeTime;
+        }
+
+        public void ChangeStartDirection(Vector2 direction)
+        {
+            Data.Direction = direction;
+            Data.Velocity *= direction;
+        }
+        
+        public void ChangePower(float power)
+        {
+            Data.DamagePower = power;
         }
 
         #endregion

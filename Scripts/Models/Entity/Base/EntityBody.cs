@@ -19,6 +19,7 @@ namespace SimpleGame.Scripts.Models.Entity
 
         #endregion
 
+        
         #region Properties
 
         public  TEntityData Data { get; set; }
@@ -75,7 +76,8 @@ namespace SimpleGame.Scripts.Models.Entity
             
             SetAnimation();
             
-            MoveAndSlide(Data.Velocity.Normalized() * EntityData.Speed, Floor);
+            MoveAndSlide(Data.Velocity.Normalized() * EntityData.Speed, Floor );
+            
         } 
 
         private void UpdateLookDirection()
@@ -137,16 +139,11 @@ namespace SimpleGame.Scripts.Models.Entity
             }
         }
         
-        public void Hurt(float kickBackPower, Vector2 damagePosition)
+        public void Hurt(Vector2 damageVelocity, float damage)
         {
-            if (damagePosition.x > Data.Collider.GlobalPosition.x)
-            {
-                Data.Velocity.x -= kickBackPower;
-            }
-            else
-            {
-                Data.Velocity.x += kickBackPower;
-            }
+            damageVelocity *= damage;
+            
+            Data.Velocity += damageVelocity;
         }
         
         public virtual void Run(float runRate = 1.0f)
@@ -179,8 +176,20 @@ namespace SimpleGame.Scripts.Models.Entity
 
         private void StopMoveApply()
         {
-            if (Data.Velocity.x == 0)
+            if (Data.Velocity.x == 0 && Data.Velocity.y == 0)
             {
+                return;
+            }
+            
+            if (IsOnWall())
+            {
+                Data.Velocity.x = 0;
+                return;
+            }
+
+            if (IsOnCeiling())
+            {
+                Data.Velocity.y = 0;
                 return;
             }
             

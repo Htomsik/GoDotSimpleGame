@@ -8,6 +8,7 @@ namespace SimpleGame.Scripts.Models.Hit
     /// <remarks>Отвечает за физические процессы, анимации и тд.</remarks>
     /// </summary>
     public class HitBody<THitData> : KinematicBody2D
+    where THitData : HitData
     {
         #region Actions
 
@@ -25,11 +26,40 @@ namespace SimpleGame.Scripts.Models.Hit
 
         #region Обработчики тиков
         
-        public override void _PhysicsProcess(float delta) => PhysicsProcess?.Invoke();
+        public override void _PhysicsProcess(float delta)
+        {
+            PhysicsProcess?.Invoke();
+            
+            Move();
+        }
         
         public override void _Ready() =>  Ready?.Invoke();
         
         #endregion
-      
+        
+        #region Обработчики действий
+
+        protected virtual void Move()
+        {
+            UpdateLookDirection();
+        
+            SetAnimation();
+        
+            MoveAndSlide(Data.Velocity);
+        }
+        
+        
+        protected virtual void UpdateLookDirection()
+        {
+            if (Data.Velocity.x == 0) return;
+        
+            Data.AnimatedSprite.FlipH = Data.Velocity.x < 0;
+        }
+        
+        protected virtual void SetAnimation()
+        {
+        }
+
+        #endregion
     }
 }

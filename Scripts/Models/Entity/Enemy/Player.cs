@@ -36,11 +36,16 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             
             Body.Jump(Godot.Input.GetActionStrength("Jump"), false);
 
-            if (Godot.Input.IsActionJustPressed("Jub"))
+            if (Godot.Input.IsActionJustPressed("Punch"))
             {
                 Punch();
+                return;
             }
            
+            if (Godot.Input.IsActionJustPressed("PistolShoot"))
+            {
+                PistolShoot();
+            }
         }
 
         #endregion
