@@ -3,13 +3,11 @@ using SimpleGame.Scripts.Models.Extensions;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
-    public class EntityData
+    public abstract class EntityData
     {
         #region Свойства сущности
         
         public const float Speed = 120;
-        
-        public float JubTime { get; protected set; } = 0.3f;
         
         public float HurtTime { get; protected set; } = 0.3f;
         
@@ -22,8 +20,6 @@ namespace SimpleGame.Scripts.Models.Entity
         public EntityCollider Collider { get; set; } = new EntityCollider();
         
         public Vector2 Velocity = new Vector2();
-        
-        public Timer JubTimer { get; set; } = new Timer();
         
         public Timer HurtTimer { get; set; } = new Timer();
 

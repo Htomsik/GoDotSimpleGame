@@ -7,15 +7,21 @@ namespace SimpleGame.Scripts.Models.Hit
     ///     Удар
     /// <remarks>   Принимает информацию из данных, обрабатывает и передает телу и данным</remarks>
     /// </summary>
-    public class Hit : INode
+    public abstract class Hit<THitData, THitbody> : INode
+        where THitData : HitData
+        where THitbody : HitBody<THitData>
     {
-         protected  HitData Data { get; set; } = new HitData();
+        protected  THitData Data { get; set; } 
 
-         protected  HitBody Body { get; set; }
+        protected  THitbody Body { get; set; }
 
-        public Hit()
+        public Hit(THitData data, THitbody body)
         {
-            Body = new HitBody(Data);
+            Data = data;
+            Body = body;
+            Body.Data = Data;
+            
+            Body.Ready += Ready;
             
             AddChild(Data.HitBox);
             AddChild(Data.LifeTimer);
@@ -24,11 +30,12 @@ namespace SimpleGame.Scripts.Models.Hit
             Data.HitBox.Collider.ChangeSize(2f,1);
             
             Data.HitBox.SetDamage += action => action?.Invoke(Data.DamagePower, Body.GlobalPosition);
-
-            Body.Ready += Ready;
             Body.PhysicsProcess += PhysicsProcess;
         }
-        
+
+
+        #region Обработчики тиков
+
         protected virtual void Ready()
         {
             // Запуск таймра жизни объекта
@@ -44,11 +51,19 @@ namespace SimpleGame.Scripts.Models.Hit
             }
         }
 
+        #endregion
+
+        #region Другое
+
         public void ChangeLifeTime(float lifeTime)
         {
             Data.LifeTime = lifeTime;
         }
-        
+
+        #endregion
+
+        #region INode
+
         public void SetPosition(Vector2 pos)
         {
             Body.GlobalPosition = pos;
@@ -61,5 +76,8 @@ namespace SimpleGame.Scripts.Models.Hit
         public void AddChild(Node child) =>  Body.AddChild(child);
         
         public void RemoveChild(Node child) =>  Body.RemoveChild(child);
+
+        #endregion
+        
     }
 }

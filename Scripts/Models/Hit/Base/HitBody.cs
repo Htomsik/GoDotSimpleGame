@@ -7,7 +7,7 @@ namespace SimpleGame.Scripts.Models.Hit
     ///     Тело Удара
     /// <remarks>Отвечает за физические процессы, анимации и тд.</remarks>
     /// </summary>
-    public class HitBody : KinematicBody2D
+    public class HitBody<THitData> : KinematicBody2D
     {
         #region Actions
 
@@ -16,17 +16,20 @@ namespace SimpleGame.Scripts.Models.Hit
         public Action PhysicsProcess { get; set; }
 
         #endregion
-        
-        
-        private readonly HitData _data;
-        
-        public HitBody(HitData data)
-        {
-            _data = data;
-        }
 
+        #region Properties
+
+        public  THitData Data { get; set; }
+
+        #endregion
+
+        #region Обработчики тиков
+        
         public override void _PhysicsProcess(float delta) => PhysicsProcess?.Invoke();
         
         public override void _Ready() =>  Ready?.Invoke();
+        
+        #endregion
+      
     }
 }

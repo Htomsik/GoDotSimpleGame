@@ -3,68 +3,70 @@ using SimpleGame.Scripts.Models.CustomNode;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
-    public class Entity : INode
+    public abstract class Entity<TEntityBody, TEntityData> : INode 
+        where TEntityBody : EntityBody<TEntityData>
+        where TEntityData : EntityData
     {
-        #region Fields
+        #region Properties
 
-        protected EntityBody Body;
-
-        protected EntityData Data;
-
+        protected TEntityBody Body { get; private set; }
+        
+        protected TEntityData Data { get; private set; }
+        
         #endregion
         
         #region Constructors
-
-        public Entity()
+        
+        protected Entity(TEntityBody body, TEntityData data)
         {
-            InitializeData();
-            
-            InitializeChild();
+            Body = body;
+            Data = data;
+            Body.Data = data;
             
             Body.PhysicsProcess = PhysicsProcess;
             Body.Process = Process;
             Body.Input = Input;
+            Body.Ready = Ready;
             
+            AddChild(Data.AnimatedSprite);
+            AddChild(Data.Collider);
+            AddChild(Data.HurtTimer);
         }
 
         #endregion
 
         #region Methods
 
-        protected virtual void InitializeData()
+        #region Обработчики тиков
+
+        protected virtual void PhysicsProcess(float delta)
         {
-            Data = new EntityData();
-            Body = new EntityBody(Data);
+            
+        }
+        
+        protected virtual void Process(float delta)
+        {
+            
+        }
+        
+        protected virtual  void Input(InputEvent ev)
+        {
+            
+        }
+        
+        protected virtual void Ready()
+        {
+          
         }
 
-        protected virtual void InitializeChild()
-        {
-            // Инициализируем дочерние ноды
-            AddChild(Data.AnimatedSprite);
-            AddChild(Data.Collider);
-        }
+        #endregion
         
-        public virtual void PhysicsProcess(float delta)
-        {
-            
-        }
+        #region INode extensions
         
-        public virtual void Process(float delta)
-        {
-            
-        }
-        
-        public  void Input(InputEvent ev)
-        {
-            
-        }
-
         public void SetPosition(Vector2 pos)
         {
             Body.GlobalPosition = pos;
         }
-        
-        #region Node extensions
         
         public void ConnectToNode(Node parent) => parent.AddChild(Body);
         

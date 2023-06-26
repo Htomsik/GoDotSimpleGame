@@ -14,12 +14,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
         public float DeadTime { get; protected set; } = 0.5f;
         
-        #region HP
-
         public float Hp
         {
             get => _hp;
-
             set
             {
                 _hp = value;
@@ -33,10 +30,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         }
         
         private float _hp = 100;
-
-        #endregion
-       
-
+        
+        public float PunchTime { get; protected set; } = 0.3f;
+        
         #endregion
 
 
@@ -50,6 +46,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public Timer DeadTimer { get; protected set; } = new Timer();
         
+        public Timer PunchTimer { get; set; } = new Timer();
+        
         #endregion
         
         #region Constructors
@@ -60,7 +58,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         }
 
         #endregion
-
+        
         public override void InitTextures(Vector2 offsetPos)
         {
             HpBar.TextureProgress_ = ImageLoader.LoadTexture("res://Sprites/HpBar/HpBar.png");

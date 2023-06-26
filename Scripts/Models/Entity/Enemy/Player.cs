@@ -1,8 +1,8 @@
 ﻿using Godot;
 
-namespace SimpleGame.Scripts.Models.Entity
+namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
-    public class Player : Enemy.Enemy
+    public class Player : Enemy
     {
         #region Fields
 
@@ -38,7 +38,7 @@ namespace SimpleGame.Scripts.Models.Entity
 
             if (Godot.Input.IsActionJustPressed("Jub"))
             {
-                Jub();
+                Punch();
             }
            
         }

@@ -1,25 +1,22 @@
 ﻿
 
 using Godot;
+using SimpleGame.Scripts.Models.Hit.Punch;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
-    public class Enemy : Entity
+    public class Enemy : Entity<EnemyBody, EnemyData>
     {
-        private new EnemyData Data { get; set; }
-        
-        protected override void InitializeData()
-        {
-            Data = new EnemyData();
+        #region Constructors
 
-            base.Data = this.Data;
-            
-            Body = new EntityBody(Data);
-            
-            // Иницилизация 
+        public Enemy() : base(new EnemyBody(), new EnemyData())
+        {
             Data.InitTextures( new Vector2(0,0));
             Data.Collider.ChangeSize(8f, 16);
             Data.HitBox.Collider.ChangeSize(9f, 17);
+            
+            
+            AddChild(Data.PunchTimer);
             
             // Получение урона
             Data.HitBox.Damage += (damage, damagePosition) =>
@@ -40,18 +37,15 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 
                 Data.IsDead = true;
             };
+        }
 
-        }
+        #endregion
         
-        protected override void InitializeChild()
-        {
-            AddChild(Data.HpBar);
-            AddChild(Data.HitBox);
-            AddChild(Data.DeadTimer);
-            base.InitializeChild();
-        }
-        
-        public override void Process(float delta)
+        #region Methods
+
+        #region Обработчики тиков
+
+        protected override void Process(float delta)
         {
             if (!Data.IsDead || Data.DeadTimer.TimeLeft > 0)
             {
@@ -64,9 +58,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         }
 
         /// <summary>
-        ///     Процессы, происходящие пок объект жив
+        ///     Процессы, происходящие пока объект жив
         /// </summary>
-        public virtual void LifeProcess()
+        protected virtual void LifeProcess()
         {
             
         }
@@ -74,25 +68,34 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         /// <summary>
         ///     Процессы, происходящие после смерти объекта
         /// </summary>
-        public virtual void DeadProcess()
+        protected virtual void DeadProcess()
         {
             Body.QueueFree();
         }
 
+        #endregion
 
-        protected virtual void Jub()
+        #region Действия
+
+        /// <summary>
+        ///     Удар рукой
+        /// </summary>
+        protected virtual void Punch()
         {
-            if (!Body.Jub())
+            if (!Body.CanJub())
             {
                 return;
             }
-
-            CreateHit();
+            
+            Data.PunchTimer.Start(Data.PunchTime);
+            Data.PunchTimer.OneShot = true;
+            
+            CreatePunch();
         }
         
-        protected virtual void CreateHit(int posX = 0, int posY = 0)
+        protected virtual void CreatePunch(int posX = 0, int posY = 0)
         {
-            var hit = new Hit.Hit();
+            var punch = new Punch();
 
             Vector2 hitStartPosition;
             
@@ -105,9 +108,26 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 hitStartPosition = new Vector2(Data.Collider.Position.x + 15 + posX, Data.Collider.Position.y + posY);
             }
             
-            hit.SetPosition(hitStartPosition);
+            punch.SetPosition(hitStartPosition);
             
-            hit.ConnectToNode(Body);
+            punch.ConnectToNode(Body);
         }
+
+        #endregion
+
+        #region Другое
+
+        protected override void Ready()
+        {
+            AddChild(Data.HpBar);
+            AddChild(Data.HitBox);
+            AddChild(Data.DeadTimer);
+            
+            base.Ready();
+        }
+
+        #endregion
+
+        #endregion
     }
 }
