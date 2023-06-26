@@ -8,6 +8,7 @@ namespace SimpleGame.Scripts.Models.Hit
     /// <remarks>Отвечает за физические процессы, анимации и тд.</remarks>
     /// </summary>
     public class HitBody<THitData> : KinematicBody2D
+    where THitData : HitData
     {
         #region Actions
 

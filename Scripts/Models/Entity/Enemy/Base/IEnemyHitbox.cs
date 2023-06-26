@@ -4,6 +4,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
     public interface IEnemyHitbox
     {
-        void GetDamage(float damage, Vector2 damagePosition);
+        void GetDamage(float damage, Vector2 damageRotation);
     }
 }

@@ -33,6 +33,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public float DeadTime { get; protected set; } = 2f;
         
+        public float PistolShootTime { get; protected set; } = 0.6f;
+        
         #endregion
 
 
@@ -47,6 +49,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         public Timer DeadTimer { get; protected set; } = new Timer();
         
         public Timer PunchTimer { get; set; } = new Timer();
+        
+        public Timer PistolShootTimer { get; set; } = new Timer();
         
         #endregion
         
@@ -72,6 +76,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.DeadSprite, enemySpritePath + "Enemy_Death.png", false, true);
             AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PunchSprite,enemySpritePath + "Enemy_Punch.png", true, true);
             AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.PunchSprite,16f);
+            
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PistolShootSprite, enemySpritePath + "Enemy_PistolShoot.png", false, true);
+            AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.PistolShootSprite,16f);
         }
     }
 }

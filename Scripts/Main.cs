@@ -1,6 +1,5 @@
 using Godot;
 using SimpleGame.Scripts.Models.Dungeon;
-using SimpleGame.Scripts.Models.Entity;
 using SimpleGame.Scripts.Models.Entity.Enemy;
 
 
@@ -16,7 +15,7 @@ namespace SimpleGame.Scripts
         
         public override void _Ready()
         {
-            _level = new Level(new Vector2(20,20));
+            _level = new Level(new Vector2(15,10));
             _level.ConnectLevel(this);
 
             _enemy = new Enemy();
