@@ -22,6 +22,7 @@ namespace SimpleGame.Scripts.Models.Entity
         public Vector2 Velocity = new Vector2();
         
         public Timer HurtTimer { get; set; } = new Timer();
+        
 
         #endregion
 

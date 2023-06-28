@@ -34,17 +34,15 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         {
             Body.Run(Godot.Input.GetActionStrength("Right") - Godot.Input.GetActionStrength("Left"));
             
-            Body.Jump(Godot.Input.GetActionStrength("Jump"), false);
-
-            if (Godot.Input.IsActionJustPressed("Punch"))
+            if (Godot.Input.IsActionPressed("Jump"))
             {
-                Punch();
-                return;
+                Body.Jump(Godot.Input.GetActionStrength("Jump"));
             }
-           
-            if (Godot.Input.IsActionJustPressed("PistolShoot"))
+
+            if (Godot.Input.IsActionPressed("Attack"))
             {
-                PistolShoot();
+                Attack();
+                return;
             }
         }
 

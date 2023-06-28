@@ -91,7 +91,6 @@ namespace SimpleGame.Scripts.Models.Entity
             } 
                 
             Data.AnimatedSprite.FlipH = Data.Velocity.x < 0;
-
         }
 
         protected virtual  void SetAnimation()
@@ -102,7 +101,7 @@ namespace SimpleGame.Scripts.Models.Entity
                 return;
             }
             
-            if (Data.Velocity.x  == 0 && Data.Velocity.y == 0 )
+            if (Data.Velocity is { x: 0, y: 0 } )
             {
                 Data.AnimatedSprite.Play(EntitySpriteNames.IdleSprite);
                 return;
@@ -195,6 +194,8 @@ namespace SimpleGame.Scripts.Models.Entity
             
             if (IsOnFloor())
             {
+               
+                
                 if (Math.Abs(Data.Velocity.x) <= 1)
                 {
                     Data.Velocity.x += Data.Velocity.x > 0 ? - Data.Velocity.x  : Data.Velocity.x;
@@ -204,11 +205,13 @@ namespace SimpleGame.Scripts.Models.Entity
                 Data.Velocity.x +=  Data.Velocity.x > 0 ? -StopRunFloorPower : StopRunFloorPower;
                 return;
             }
-            
-            Data.Velocity.x +=  Data.Velocity.x > 0 ? -StopRunAirPower : StopRunAirPower;
+
+            if (Data.Velocity.x != 0)
+            {
+                Data.Velocity.x +=  Data.Velocity.x > 0 ? -StopRunAirPower : StopRunAirPower;
+            }
         }
-
-
+        
         #endregion
         
         #endregion

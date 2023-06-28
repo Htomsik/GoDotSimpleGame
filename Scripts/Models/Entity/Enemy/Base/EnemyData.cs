@@ -1,6 +1,7 @@
 ﻿using System;
 using Godot;
 using SimpleGame.Scripts.Models.Extensions;
+using SimpleGame.Scripts.Models.Weapon;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -11,6 +12,26 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         public Action Dead { get; set; }
         
         public bool IsDead { get; set; } = false;
+        
+        public Action SetCurrentWeaponOwner { get; set; }
+        
+        public IWeapon CurrentWeapon
+        {
+            get => _currentWeapon;
+            set
+            {
+                _currentWeapon = value;
+
+                if (_currentWeapon is null)
+                {
+                    return;
+                }
+                
+                SetCurrentWeaponOwner.Invoke();
+            }
+        }
+
+        private IWeapon _currentWeapon;
         
         public float Hp
         {
@@ -29,11 +50,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         private float _hp = 100;
         
-        public float PunchTime { get; protected set; } = 0.3f;
-        
         public float DeadTime { get; protected set; } = 2f;
         
-        public float PistolShootTime { get; protected set; } = 0.6f;
         
         #endregion
 
@@ -48,10 +66,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public Timer DeadTimer { get; protected set; } = new Timer();
         
-        public Timer PunchTimer { get; set; } = new Timer();
-        
-        public Timer PistolShootTimer { get; set; } = new Timer();
-        
         #endregion
         
         #region Constructors
@@ -62,6 +76,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         }
 
         #endregion
+
         
         public override void InitTextures(Vector2 offsetPos)
         {
@@ -77,7 +92,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PunchSprite,enemySpritePath + "Enemy_Punch.png", true, true);
             AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.PunchSprite,16f);
             
-            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PistolShootSprite, enemySpritePath + "Enemy_PistolShoot.png", false, true);
+            AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.PistolShootSprite, enemySpritePath + "Enemy_PistolShoot.png", true, true);
             AnimatedSprite.Frames.SetAnimationSpeed(EntitySpriteNames.PistolShootSprite,16f);
         }
     }

@@ -1,8 +1,5 @@
-﻿
-
-using Godot;
-using SimpleGame.Scripts.Models.Hit.Bullet;
-using SimpleGame.Scripts.Models.Hit.Punch;
+﻿using Godot;
+using SimpleGame.Scripts.Models.Weapon;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -15,9 +12,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             Data.InitTextures( new Vector2(0,0));
             Data.Collider.ChangeSize(8f, 16);
             Data.HitBox.Collider.ChangeSize(9f, 17);
-            
-            AddChild(Data.PunchTimer);
-            AddChild(Data.PistolShootTimer);
             
             // Получение урона
             Data.HitBox.Damage += (damage, direction) =>
@@ -38,6 +32,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 
                 Data.IsDead = true;
             };
+
+            Data.SetCurrentWeaponOwner += () =>
+            {
+                Data.CurrentWeapon.SetOwner(Body);
+            };
+
+            Data.CurrentWeapon = new PistolWeapon();
         }
 
         #endregion
@@ -79,82 +80,18 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         #region Действия
 
         /// <summary>
-        ///     Удар рукой
+        ///     Атака оружием
         /// </summary>
-        protected virtual void Punch()
+        protected virtual void Attack()
         {
-            if (!Body.CanJub())
+            if (!Body.CanAttack())
             {
                 return;
             }
             
-            Data.PunchTimer.Start(Data.PunchTime);
-            Data.PunchTimer.OneShot = true;
-            
-            CreatePunch();
+            Data.CurrentWeapon.Attack(Data.AnimatedSprite.FlipH ? new Vector2(-1,1) : new Vector2(1,1));
         }
         
-        protected virtual void CreatePunch(int posX = 0, int posY = 0)
-        {
-            var punch = new Punch();
-
-            Vector2 hitStartPosition;
-            Vector2 direction;
-            
-            if (Data.AnimatedSprite.FlipH)
-            {
-                hitStartPosition = new Vector2(Data.Collider.Position.x - 15 + posX, Data.Collider.Position.y + posY);
-                direction = new Vector2(-1, 0);
-            }
-            else
-            {
-                hitStartPosition = new Vector2(Data.Collider.Position.x + 15 + posX, Data.Collider.Position.y + posY);
-                direction = new Vector2(1, 0);
-            }
-            
-            punch.SetPosition(hitStartPosition);
-            punch.ChangeStartDirection(direction);
-            
-            punch.ConnectToNode(Body);
-        }
-
-        protected void PistolShoot()
-        {
-            if (!Body.CanPistolShoot())
-            {
-                return;
-            }
-            
-            Data.PistolShootTimer.Start(Data.PistolShootTime);
-            Data.PistolShootTimer.OneShot = true;
-            
-            CreatePistolShoot();
-        }
-
-        protected virtual void CreatePistolShoot(int posX = 0, int posY = -6)
-        {
-            var pistolShoot = new Bullet();
-
-            Vector2 hitStartPosition;
-            Vector2 direction;
-            
-            if (Data.AnimatedSprite.FlipH)
-            {
-                hitStartPosition = new Vector2(Data.Collider.Position.x - 15 + posX, Data.Collider.Position.y + posY);
-                direction = new Vector2(-1, 0);
-            }
-            else
-            {
-                hitStartPosition = new Vector2(Data.Collider.Position.x + 15 + posX, Data.Collider.Position.y + posY);
-                direction = new Vector2(1, 0);
-            }
-            
-            pistolShoot.SetPosition(hitStartPosition);
-            pistolShoot.ChangeStartDirection(direction);
-            
-            pistolShoot.ConnectToNode(Body);
-        }
-
         #endregion
 
         #region Другое

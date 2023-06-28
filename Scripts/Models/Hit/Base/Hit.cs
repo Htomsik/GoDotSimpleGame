@@ -1,5 +1,6 @@
-﻿using Godot;
-using SimpleGame.Scripts.Models.CustomNode;
+﻿using System;
+using Godot;
+
 
 namespace SimpleGame.Scripts.Models.Hit
 {
@@ -7,15 +8,15 @@ namespace SimpleGame.Scripts.Models.Hit
     ///     Удар
     /// <remarks>   Принимает информацию из данных, обрабатывает и передает телу и данным</remarks>
     /// </summary>
-    public abstract class Hit<THitData, THitbody> : INode, IHit
+    public abstract class Hit<THitData, THitBody> : IHit
         where THitData : HitData
-        where THitbody : HitBody<THitData>
+        where THitBody : HitBody<THitData>
     {
         protected  THitData Data { get; set; } 
 
-        protected  THitbody Body { get; set; }
+        protected  THitBody Body { get; set; }
 
-        public Hit(THitData data, THitbody body)
+        public Hit(THitData data, THitBody body)
         {
             Data = data;
             Body = body;
@@ -58,6 +59,11 @@ namespace SimpleGame.Scripts.Models.Hit
         #endregion
 
         #region Другое
+
+        public Type GenerateHit()
+        {
+            throw new NotImplementedException();
+        }
 
         public void ChangeLifeTime(float lifeTime)
         {
