@@ -5,8 +5,7 @@ using Godot;
 namespace SimpleGame.Scripts.Models.Hit
 {
     /// <summary>
-    ///     Удар
-    /// <remarks>   Принимает информацию из данных, обрабатывает и передает телу и данным</remarks>
+    ///     Базовый удар
     /// </summary>
     public abstract class Hit<THitData, THitBody> : IHit
         where THitData : HitData

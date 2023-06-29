@@ -3,6 +3,9 @@ using SimpleGame.Scripts.Models.Hit.Punch;
 
 namespace SimpleGame.Scripts.Models.Weapon;
 
+/// <summary>
+///     Удар кулаком
+/// </summary>
 public class PunchWeapon : Weapon<Punch>
 { 
     public PunchWeapon() 

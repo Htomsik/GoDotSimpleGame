@@ -2,6 +2,9 @@
 
 namespace SimpleGame.Scripts.Models.Hit.Bullet;
 
+/// <summary>
+///     Пуля
+/// </summary>
 public class Bullet : Hit<BulletData, BulletBody>
 {
     public Bullet() : base(new BulletData(), new BulletBody())

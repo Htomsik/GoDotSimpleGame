@@ -3,6 +3,10 @@ using SimpleGame.Scripts.Models.CustomNode;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
+    /// <summary>
+    ///     Базовая сущность
+    /// <remarks>Базовая сущность - любая сущность что может существовать в мире</remarks>
+    /// </summary>
     public abstract class Entity<TEntityBody, TEntityData> : INode 
         where TEntityBody : EntityBody<TEntityData>
         where TEntityData : EntityData

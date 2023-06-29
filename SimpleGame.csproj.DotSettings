@@ -7,4 +7,6 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Chit_005Cbase/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Chit_005Cbase_005Chitdata/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Chit_005Chitdata/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Cinventory_005Cbase/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Citem_005Cbase/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=scripts_005Cmodels_005Cweapon_005Cbase/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

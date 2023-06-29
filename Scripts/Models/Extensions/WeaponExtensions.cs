@@ -6,7 +6,7 @@ public static class WeaponExtensions
 {
     public static string GetSpriteName(this IWeapon weapon)
     {
-        return weapon.Type switch
+        return weapon.WeaponType switch
         {
             WeaponType.Punch => EntitySpriteNames.PunchSprite,
             WeaponType.Pistol => EntitySpriteNames.PistolShootSprite,

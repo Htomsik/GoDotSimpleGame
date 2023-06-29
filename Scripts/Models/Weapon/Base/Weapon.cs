@@ -1,34 +1,46 @@
-﻿using System;
-using Godot;
+﻿using Godot;
 using SimpleGame.Scripts.Models.Hit;
 
 namespace SimpleGame.Scripts.Models.Weapon;
 
+/// <summary>
+///     Базовое оружие
+/// </summary>
+/// <typeparam name="THit">Патроны которыми атакует оружие</typeparam>
 public abstract class Weapon<THit> : IWeapon
 where THit : IHit, new()
 {
     #region Свойства сущности
 
+    /// <summary>
+    ///     Сколько оружие атакует
+    /// </summary>
     protected float AttackDelay = 0f;
     
-    public WeaponType Type { get; protected set; } = WeaponType.Punch;
+    public WeaponType WeaponType { get; protected set; } = WeaponType.Punch;
 
     #endregion
 
     #region Физические свойства
     
     public Timer AttackTimer { get; } = new ();
-    
-    protected Node2D Owner { get;  set; }
+
+    private Node2D Owner { get;  set; }
 
     protected Vector2 Offset;
 
     #endregion
     
+    #region Constructors
+
     protected Weapon()
     {
         AttackTimer.OneShot = true;
     }
+
+    #endregion
+
+    #region Methods
 
     public void Attack(Vector2 direction)
     {
@@ -53,4 +65,6 @@ where THit : IHit, new()
     }
 
     public bool CanAttack() => AttackTimer.TimeLeft <= 0;
+
+    #endregion
 }
