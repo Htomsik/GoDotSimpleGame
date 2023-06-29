@@ -38,7 +38,18 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             {
                 Data.CurrentWeapon.SetOwner(Body);
             };
-            
+
+            Data.HotBar.SelectionChanged += _ =>
+            {
+                if (Data.HotBar.Current?.ItemType == ItemType.Weapon)
+                {
+                    Data.CurrentWeapon = (IWeapon)Data.HotBar.Current;
+                }
+                else
+                {
+                    Data.CurrentWeapon = null;
+                }
+            };
         }
 
         #endregion
@@ -100,15 +111,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             }
             
             Data.HotBar.Select(number);
-            
-            if (Data.HotBar.Current.ItemType ==  ItemType.Weapon)
-            {
-                Data.CurrentWeapon = (IWeapon)Data.HotBar.Current;
-            }
-            else
-            {
-                Data.CurrentWeapon = null;
-            }
         }
         
         #endregion

@@ -32,22 +32,44 @@ public class HotBarUiPanel : Panel
     protected virtual StyleBoxTexture BaseStyle { get; } = new ();
     protected virtual StyleBoxTexture SelectedStyle { get; } = new ();
 
-    public IItem Item { get; set; }
+    public IItem Item
+    { 
+        get => _item;
+        set
+        {
+            if (_item != null)
+            {
+                CenterContainer.RemoveChild(Item.InventorySprite);
+            }
+
+            _item = value;
+            
+            if (_item != null)
+            {
+                CenterContainer.AddChild(Item.InventorySprite);
+            }
+            
+        }
+        
+    }
+
+    private IItem _item;
 
     protected CenterContainer CenterContainer { get; set; } = new CenterContainer();
     
     #endregion
 
     
-    public HotBarUiPanel(IItem item)
+    public HotBarUiPanel(IItem item) : this()
     {
         Item = item;
-        
+    }
+
+    public HotBarUiPanel()
+    {
         RectSize = new Vector2(20, 20);
         CenterContainer.RectSize = RectSize;
         Selected = false;
-        
-        CenterContainer.AddChild(item.InventorySprite);
         AddChild(CenterContainer);
     }
 

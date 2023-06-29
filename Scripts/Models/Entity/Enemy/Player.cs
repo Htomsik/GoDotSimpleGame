@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SimpleGame.Scripts.Models.HotBar;
+using SimpleGame.Scripts.Models.Weapon;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -28,6 +29,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             
             HotBarUi = new HotBarUi(Data.HotBar);
             _camera.AddChild(HotBarUi);
+            Data.HotBar.Box.Add(new PistolWeapon());
+            Data.HotBar.Box.Add(new PunchWeapon());
         }
 
         #endregion

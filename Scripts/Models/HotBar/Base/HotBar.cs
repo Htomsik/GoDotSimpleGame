@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using SimpleGame.Scripts.Models.Inventory.Box;
 using SimpleGame.Scripts.Models.Item;
 using SimpleGame.Scripts.Models.Weapon;
 
@@ -11,32 +11,32 @@ public class HotBar : IHotBar
     
     public int CurrentIndex { get; protected set; } = 0;
 
-    public int ItemsCount { get; } = 9;
+   
     public Action<int> SelectionChanged { get; set; }
-
+    
     #endregion
 
     #region Физические свойства
 
-    public List<IItem> Box { get; protected set; } = new List<IItem>();
+    public Box<IItem> Box { get; protected set; } = new Box<IItem>();
     
     public IItem Current { get; protected set; }
     
     #endregion
 
-    public HotBar()
-    {
-        Box.Add(new PunchWeapon());
-        Box.Add(new PistolWeapon());
-    }
-    
+    #region Methods
+
     public void Select(int number)
     {
         var nextHotItem = CurrentIndex + number;
 
-        if (Box.Count - 1 < nextHotItem || nextHotItem < 0) return;
-        
-        Current = Box[nextHotItem];
+        if (Box.MaxItemsCount - 1  < nextHotItem || nextHotItem < 0) return;
+
+        if (Box.Count -1 >= nextHotItem)
+        {
+            Current = Box[nextHotItem];
+        }
+      
         CurrentIndex = nextHotItem;
         
         SelectionChanged?.Invoke(CurrentIndex);
@@ -51,4 +51,6 @@ public class HotBar : IHotBar
 
         return true;
     }
+    
+    #endregion
 }

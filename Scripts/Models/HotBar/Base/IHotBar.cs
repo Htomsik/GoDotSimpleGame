@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using SimpleGame.Scripts.Models.Inventory.Box;
 using SimpleGame.Scripts.Models.Item;
 
 namespace SimpleGame.Scripts.Models.HotBar;
 
 public interface IHotBar
 {
-    public List<IItem> Box { get; }
+    public Box<IItem> Box { get; }
     
     public IItem Current { get; }
-    
-    public int ItemsCount { get; }
     
     public Action<int> SelectionChanged { get; set; }
 
