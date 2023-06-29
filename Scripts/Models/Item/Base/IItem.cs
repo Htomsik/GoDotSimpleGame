@@ -9,7 +9,7 @@ public interface IItem
 {
     public string Name { get;  }
     
-    public Sprite Sprite { get; }
+    public TextureRect InventorySprite { get; }
     
     public ItemType ItemType { get; }
 }

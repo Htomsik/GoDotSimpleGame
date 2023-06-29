@@ -2,7 +2,7 @@
 
 namespace SimpleGame.Scripts.Models.Dungeon
 {
-    public class Level
+    public class Level 
     {
         #region Properties
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Godot;
 using SimpleGame.Scripts.Models.Extensions;
+using SimpleGame.Scripts.Models.Inventory;
 using SimpleGame.Scripts.Models.Weapon;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
@@ -20,6 +21,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             get => _currentWeapon;
             set
             {
+                _currentWeapon?.RemoveOwner();
+                
                 _currentWeapon = value;
 
                 if (_currentWeapon is null)
@@ -32,6 +35,9 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         }
 
         private IWeapon _currentWeapon;
+        
+        
+        public IInventory Inventory { get; }
         
         public float Hp
         {
@@ -73,6 +79,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         public EnemyData()
         {
             Hp = 10000;
+
+            Inventory = new Inventory.Inventory();
         }
 
         #endregion

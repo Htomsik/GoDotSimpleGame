@@ -7,7 +7,7 @@ public class EnemyBody : EntityBody<EnemyData>
 {
     public bool CanAttack()
     {
-        if (!Data.CurrentWeapon.CanAttack())
+        if (Data.CurrentWeapon == null || !Data.CurrentWeapon.CanAttack())
         {
             return false;
         }
@@ -17,7 +17,7 @@ public class EnemyBody : EntityBody<EnemyData>
     
     public override void Run(float runRate = 1)
     {
-        if (Math.Abs(Data.Velocity.x) >= MaxRunPower || Data.CurrentWeapon.AttackTimer.TimeLeft > 0) return;
+        if (Math.Abs(Data.Velocity.x) >= MaxRunPower || Data.CurrentWeapon?.AttackTimer.TimeLeft > 0) return;
         
         base.Run(runRate);
     }
@@ -30,7 +30,7 @@ public class EnemyBody : EntityBody<EnemyData>
             return;
         }
         
-        if (Data.CurrentWeapon.AttackTimer.TimeLeft > 0)
+        if (Data.CurrentWeapon?.AttackTimer.TimeLeft > 0)
         {
             Data.AnimatedSprite.Play(Data.CurrentWeapon.GetSpriteName());
             return;

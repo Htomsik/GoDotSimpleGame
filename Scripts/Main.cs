@@ -15,7 +15,7 @@ namespace SimpleGame.Scripts
         
         public override void _Ready()
         {
-            _level = new Level(new Vector2(100,15));
+            _level = new Level(new Vector2(5,5));
             _level.ConnectLevel(this);
 
             _enemy = new Enemy();

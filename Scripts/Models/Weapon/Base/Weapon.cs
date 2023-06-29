@@ -7,7 +7,7 @@ namespace SimpleGame.Scripts.Models.Weapon;
 ///     Базовое оружие
 /// </summary>
 /// <typeparam name="THit">Патроны которыми атакует оружие</typeparam>
-public abstract class Weapon<THit> : IWeapon
+public abstract class Weapon<THit> : Item.Item, IWeapon
 where THit : IHit, new()
 {
     #region Свойства сущности
@@ -62,6 +62,11 @@ where THit : IHit, new()
     {
         Owner = owner;
         Owner.AddChild(AttackTimer);
+    }
+
+    public void RemoveOwner()
+    {
+        Owner.RemoveChild(AttackTimer);
     }
 
     public bool CanAttack() => AttackTimer.TimeLeft <= 0;

@@ -38,7 +38,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 Data.CurrentWeapon.SetOwner(Body);
             };
 
-            Data.CurrentWeapon = new PistolWeapon();
+            
         }
 
         #endregion
@@ -90,6 +90,20 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             }
             
             Data.CurrentWeapon.Attack(Data.AnimatedSprite.FlipH ? new Vector2(-1,1) : new Vector2(1,1));
+        }
+        
+        public virtual void ChangeHotBarItem(int number)
+        {
+            Data.Inventory.HotBar.Select(number);
+
+            if (Data.Inventory.HotBar.Current is IWeapon item)
+            {
+                Data.CurrentWeapon = item;
+            }
+            else
+            {
+                Data.CurrentWeapon = null;
+            }
         }
         
         #endregion

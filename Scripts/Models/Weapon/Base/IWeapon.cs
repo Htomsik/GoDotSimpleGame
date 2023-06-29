@@ -1,11 +1,12 @@
 ﻿using Godot;
+using SimpleGame.Scripts.Models.Item;
 
 namespace SimpleGame.Scripts.Models.Weapon;
 
 /// <summary>
 ///     Оружие
 /// </summary>
-public interface IWeapon 
+public interface IWeapon : IItem
 {
     /// <summary>
     ///     Тип оружия
@@ -30,6 +31,11 @@ public interface IWeapon
     /// </summary>
     /// <param name="owner">Нода родитель</param>
     public void SetOwner(Node2D owner);
+
+    /// <summary>
+    ///     Отвязка от ноды при смене оружия
+    /// </summary>
+    public void RemoveOwner();
 
     /// <summary>
     ///     Может ли оружие сейчас атаковать
