@@ -1,5 +1,5 @@
 ﻿using Godot;
-using SimpleGame.Scripts.Models.Inventory.HotBar;
+using SimpleGame.Scripts.Models.HotBar;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -26,7 +26,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
             Body.PhysicsProcess += Control;
             
-            HotBarUi = new HotBarUi(Data.Inventory.HotBar);
+            HotBarUi = new HotBarUi(Data.HotBar);
             _camera.AddChild(HotBarUi);
         }
 

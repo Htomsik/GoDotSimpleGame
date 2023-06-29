@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SimpleGame.Scripts.Models.Item;
 using SimpleGame.Scripts.Models.Weapon;
 
-namespace SimpleGame.Scripts.Models.Inventory.HotBar;
+namespace SimpleGame.Scripts.Models.HotBar;
 
 public class HotBar : IHotBar
 {
@@ -44,7 +44,7 @@ public class HotBar : IHotBar
 
     public bool CanSwitch()
     {
-        if (Current is IWeapon weapon)
+        if (Current?.ItemType == ItemType.Weapon && Current is IWeapon weapon)
         {
             return weapon.AttackTimer?.TimeLeft == 0;
         }

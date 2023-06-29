@@ -12,7 +12,7 @@ public abstract class Item : IItem
 
     public string Name { get; }
     
-    public ItemType ItemType { get; } = ItemType.Quest;
+    public ItemType ItemType { get; protected set; } = ItemType.Quest;
 
     #endregion
 

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-
-namespace SimpleGame.Scripts.Models.Inventory.HotBar;
+namespace SimpleGame.Scripts.Models.HotBar;
 
 public class HotBarUi : Container
 {

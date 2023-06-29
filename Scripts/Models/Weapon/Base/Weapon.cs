@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SimpleGame.Scripts.Models.Hit;
+using SimpleGame.Scripts.Models.Item;
 
 namespace SimpleGame.Scripts.Models.Weapon;
 
@@ -36,6 +37,7 @@ where THit : IHit, new()
     protected Weapon()
     {
         AttackTimer.OneShot = true;
+        ItemType = ItemType.Weapon;
     }
 
     #endregion

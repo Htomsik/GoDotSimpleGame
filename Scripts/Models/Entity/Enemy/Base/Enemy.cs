@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SimpleGame.Scripts.Models.Item;
 using SimpleGame.Scripts.Models.Weapon;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
@@ -37,7 +38,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             {
                 Data.CurrentWeapon.SetOwner(Body);
             };
-
             
         }
 
@@ -94,11 +94,16 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         public virtual void ChangeHotBarItem(int number)
         {
-            Data.Inventory.HotBar.Select(number);
-
-            if (Data.Inventory.HotBar.Current is IWeapon item)
+            if ( !Data.HotBar.CanSwitch())
             {
-                Data.CurrentWeapon = item;
+                 return;
+            }
+            
+            Data.HotBar.Select(number);
+            
+            if (Data.HotBar.Current.ItemType ==  ItemType.Weapon)
+            {
+                Data.CurrentWeapon = (IWeapon)Data.HotBar.Current;
             }
             else
             {

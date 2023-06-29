@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using SimpleGame.Scripts.Models.Item;
 
-namespace SimpleGame.Scripts.Models.Inventory.HotBar;
+namespace SimpleGame.Scripts.Models.HotBar;
 
 public interface IHotBar
 {
     public List<IItem> Box { get; }
     
     public IItem Current { get; }
-    
     
     public int ItemsCount { get; }
     

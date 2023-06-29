@@ -1,6 +1,7 @@
 ﻿using System;
 using Godot;
 using SimpleGame.Scripts.Models.Extensions;
+using SimpleGame.Scripts.Models.HotBar;
 using SimpleGame.Scripts.Models.Inventory;
 using SimpleGame.Scripts.Models.Weapon;
 
@@ -63,6 +64,8 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
 
         #region Физические объекты
+
+        public IHotBar HotBar { get; } = new HotBar.HotBar(); 
 
         public TextureProgress HpBar { get; protected set; } = new TextureProgress();
 
