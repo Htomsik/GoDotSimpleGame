@@ -1,6 +1,4 @@
-﻿using SimpleGame.Scripts.Models.Item;
-
-namespace SimpleGame.Scripts.Models.Hit.Punch;
+﻿namespace SimpleGame.Scripts.Models.Hit.Punch;
 
 /// <summary>
 ///     Удар рукой

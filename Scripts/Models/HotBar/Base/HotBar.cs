@@ -10,8 +10,7 @@ public class HotBar : IHotBar
     #region Properties
     
     public int CurrentIndex { get; protected set; } = 0;
-
-   
+    
     public Action<int> SelectionChanged { get; set; }
     
     #endregion
@@ -32,10 +31,7 @@ public class HotBar : IHotBar
 
         if (Box.MaxItemsCount - 1  < nextHotItem || nextHotItem < 0) return;
 
-        if (Box.Count -1 >= nextHotItem)
-        {
-            Current = Box[nextHotItem];
-        }
+        Current = Box.Count -1 >= nextHotItem ? Box[nextHotItem] : null;
       
         CurrentIndex = nextHotItem;
         

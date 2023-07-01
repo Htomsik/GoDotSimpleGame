@@ -7,13 +7,13 @@ namespace SimpleGame.Scripts.Models.CustomNode
     /// </summary>
     public interface INode
     {
-        void ConnectToNode(Godot.Node parent);
+        void ConnectToNode(Node parent);
 
-        void DisconnectFromNode(Godot.Node parent);
+        void DisconnectFromNode(Node parent);
 
-        void AddChild(Godot.Node child);
+        void AddChild(Node child);
 
-        void RemoveChild(Godot.Node child);
+        void RemoveChild(Node child);
 
         void SetPosition(Vector2 pos);
     }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
+using SimpleGame.Scripts.Models.Inventory;
+using SimpleGame.Scripts.Models.Item;
 
 namespace SimpleGame.Scripts.Models.HotBar;
 
@@ -9,11 +11,13 @@ public class HotBarUi : Container
 
     protected int OldSelected { get; set; }
 
+    private bool _noCycle = false;
+
     #endregion
 
     #region Физические свойства
 
-    protected List<HotBarUiPanel> Panels { get; } = new ();
+    protected List<InventorySlot> Slots { get; } = new ();
 
     protected IHotBar Bar
     {
@@ -22,7 +26,7 @@ public class HotBarUi : Container
         {
             _bar = value;
             
-            CreatePanels();
+            CreateSlots();
             SetHotBarSubscriptions();
         }
     }
@@ -46,61 +50,80 @@ public class HotBarUi : Container
     {
         Bar.SelectionChanged += id =>
         {
-            Panels[OldSelected].Selected = false;
-            Panels[id].Selected = true;
+            Slots[OldSelected].Selected = false;
+            Slots[id].Selected = true;
             OldSelected = id;
         };
 
         Bar.Box.BoxChanged += InitializePanels;
+        
+        InitializePanels();
+        Slots[0].Selected = true;
     }
 
     /// <summary>
     ///     Пересборка панелей пр ининцалзаци нового хотбара
     /// </summary>
-    public virtual void CreatePanels()
+    public virtual void CreateSlots()
     {
         var count = 0;
         
         for (var id = 0; id < Bar.Box.MaxItemsCount; id++)
         {
-            var uiPanel = new HotBarUiPanel();
+            var slot = new InventorySlot(id);
             
-            uiPanel.SetPosition(new Vector2(count, 0));
+            slot.SetPosition(new Vector2(count, 0));
             
             count += 20;
             
-            AddChild(uiPanel);
-            
-            Panels.Add(uiPanel);
+            AddChild(slot);
+            Slots.Add(slot);
         }
         
-        if (Panels.Count == 0)
+        if (Slots.Count == 0)
         {
             return; 
         }
         
-        MarginLeft = - count / 2;
-        MarginRight = - MarginLeft;
-        MarginTop = -Panels[0].RectSize.x / 2;
-        MarginBottom = -MarginTop;
+        SetSlotsSubscriptions();
     }
 
     public virtual void InitializePanels()
     {
+        if (_noCycle)
+        {
+            _noCycle = false;
+            return;
+        }
+        
         for (var id = 0; id < Bar.Box.Count; id++)
         {
-            Panels[id].Item = Bar.Box[id];
+            Slots[id].Item = Bar.Box[id];
         }
     }
 
-    public void SetPositionByCameraSize(Vector2 position)
+
+    /// <summary>
+    ///     Инициализация подписок из слотов
+    /// </summary>
+    protected virtual void SetSlotsSubscriptions()
     {
-        position.x /= - 3f;
-
-        position.y /=  3f;
-            
-        RectPosition = position;
+        InventoryHelper.Instance.AddSlots(Slots);
+        
+        foreach (var slot in Slots)
+        {
+            slot.ItemChanged += ChangeItemInSlot;
+        }
     }
-
+    
+    /// <summary>
+    ///     Удалене вещи из бокса
+    /// </summary>
+    protected virtual void ChangeItemInSlot(int id, IItem item)
+    {
+        _noCycle = true;
+        Bar.Box.Change(id, item);
+    }
+    
     #endregion
 }

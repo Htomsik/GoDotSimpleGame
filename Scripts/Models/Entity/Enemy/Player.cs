@@ -27,8 +27,6 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
             Body.PhysicsProcess += Control;
             
-            HotBarUi = new HotBarUi(Data.HotBar);
-            _camera.AddChild(HotBarUi);
             Data.HotBar.Box.Add(new PistolWeapon());
             Data.HotBar.Box.Add(new PunchWeapon());
         }
@@ -68,15 +66,10 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
         protected override void Ready()
         {
-            ChangeUiPositions();
             base.Ready();
         }
 
-        protected virtual void ChangeUiPositions()
-        {
-           HotBarUi.SetPositionByCameraSize(_camera.GetViewportRect().Size);
-        }
-
+        
         #endregion
     }
 }

@@ -1,13 +1,20 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using SimpleGame.Scripts.Models.Extensions;
 using SimpleGame.Scripts.Models.Item;
 
-namespace SimpleGame.Scripts.Models.HotBar;
+namespace SimpleGame.Scripts.Models.Inventory;
 
-public class HotBarUiPanel : Panel
+public class InventorySlot : Panel
 {
     #region Свойства
+
+    public int Id { get;}
     
+    /// <summary>
+    ///     ID и вещь для замены в боксе
+    /// </summary>
+    public Action<int, IItem> ItemChanged { get; set; }
 
     public bool Selected
     {
@@ -37,41 +44,48 @@ public class HotBarUiPanel : Panel
         get => _item;
         set
         {
-            if (_item != null)
-            {
-                CenterContainer.RemoveChild(Item.InventorySprite);
-            }
-
+            var oldItem = _item;
+            
             _item = value;
             
-            if (_item != null)
-            {
-                CenterContainer.AddChild(Item.InventorySprite);
-            }
+            if (oldItem != _item)
+                ItemChanged?.Invoke(Id, _item);
+
+            if (_item == null)
+                return;
             
+            _item.IsPicked = false;
+            _item.SetPosition(Vector2.Zero);
+            _item.ConnectToNode(CenterContainer);
         }
-        
     }
 
     private IItem _item;
 
-    protected CenterContainer CenterContainer { get; set; } = new CenterContainer();
+    public CenterContainer CenterContainer { get; set; } = new CenterContainer();
     
     #endregion
 
+    #region Constructors
     
-    public HotBarUiPanel(IItem item) : this()
+    public InventorySlot(IItem item,int position) : this(position)
     {
         Item = item;
     }
 
-    public HotBarUiPanel()
+    public InventorySlot(int id)
     {
+        Id = id;
         RectSize = new Vector2(20, 20);
-        CenterContainer.RectSize = RectSize;
         Selected = false;
         AddChild(CenterContainer);
+        CenterContainer.RectSize = RectSize;
+        CenterContainer.MouseFilter = MouseFilterEnum.Ignore;
     }
+
+    #endregion
+
+    #region Methods
 
     protected virtual void SetStyleBoxes()
     {
@@ -79,4 +93,6 @@ public class HotBarUiPanel : Panel
         
         SelectedStyle.Texture = ImageLoader.LoadTexture("res://Sprites/HotBar/SelectedHotbarItem.png", true);
     }
+
+    #endregion
 }

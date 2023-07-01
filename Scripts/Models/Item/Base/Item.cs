@@ -1,12 +1,13 @@
 ﻿using Godot;
 using SimpleGame.Scripts.Models.Extensions;
 
+
 namespace SimpleGame.Scripts.Models.Item;
 
 /// <summary>
 ///     Базовый предмет
 /// </summary>
-public abstract class Item : IItem
+public abstract class Item : Node2D, IItem
 {
     #region Свойства
 
@@ -14,12 +15,10 @@ public abstract class Item : IItem
     
     public ItemType ItemType { get; protected set; } = ItemType.Quest;
 
-    #endregion
-
-    #region Физические свойства
-
-    public TextureRect InventorySprite { get; }
-
+    public readonly TextureRect TextureRect = new TextureRect();
+    
+    public bool IsPicked { get; set; }
+    
     #endregion
     
     #region Constructors
@@ -28,10 +27,27 @@ public abstract class Item : IItem
     {
         // TODO Переделать по нормальному
         Name =  GetType().Name;
-        InventorySprite = new TextureRect();
-        InventorySprite.Texture = ImageLoader.LoadTexture("res://Sprites/Item/ItemPlaceHolder.png", true);
+        TextureRect.Texture = ImageLoader.LoadTexture("res://Sprites/Item/ItemPlaceHolder.png", true);
+        TextureRect.MouseFilter = Control.MouseFilterEnum.Ignore;
+        TextureRect.RectPosition = new Vector2(2, 2);
+        
+        AddChild(TextureRect);
     }
+    
+    #endregion
+
+    #region INode extensions
+    
+    public void ConnectToNode(Node parent) =>  parent.AddChild(this);
+   
+
+    public void DisconnectFromNode(Node parent) =>  parent.RemoveChild(this);
+   
+
+    public void AddChild(Node child) => base.AddChild(child);
+        
+    public new void RemoveChild(Node child) =>  base.RemoveChild(child);
+    
 
     #endregion
-    
 }

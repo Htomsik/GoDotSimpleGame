@@ -34,11 +34,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 Data.IsDead = true;
             };
 
+            // Смена овнера у оружия
             Data.SetCurrentWeaponOwner += () =>
             {
                 Data.CurrentWeapon.SetOwner(Body);
             };
 
+            // Смена предмета в хотбаре
             Data.HotBar.SelectionChanged += _ =>
             {
                 if (Data.HotBar.Current?.ItemType == ItemType.Weapon)
@@ -49,6 +51,12 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
                 {
                     Data.CurrentWeapon = null;
                 }
+            };
+
+            // Реинициализация текущего оружия из хотбара
+            Data.HotBar.Box.BoxChanged += () =>
+            {
+                ChangeHotBarItem(0);
             };
         }
 
@@ -123,8 +131,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             AddChild(Data.HitBox);
             AddChild(Data.DeadTimer);
             
+            ChangeHotBarItem(0);
+            
             base.Ready();
         }
+
+        public HotBar.IHotBar GetHotBar() => Data.HotBar;
+
 
         #endregion
 
