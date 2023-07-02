@@ -1,6 +1,7 @@
 ﻿using Godot;
 using SimpleGame.Scripts.Models.HotBar;
 using SimpleGame.Scripts.Models.Weapon;
+using SimpleGame.Scripts.Models.World;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -64,12 +65,13 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             }
         }
 
-        protected override void Ready()
+        protected override void InitializeCollisionLayers()
         {
-            base.Ready();
+            base.InitializeCollisionLayers();
+            
+            Body.SetCollisionLayerBit((int)WorldLayers.Player, true);
         }
 
-        
         #endregion
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Godot;
+using Godot.Collections;
 using SimpleGame.Scripts.Models.Extensions;
 using SimpleGame.Scripts.Models.Inventory;
+using SimpleGame.Scripts.Models.World;
 
 namespace SimpleGame.Scripts.Models.Entity
 {
@@ -11,7 +13,17 @@ namespace SimpleGame.Scripts.Models.Entity
         public const float Speed = 120;
         
         public float HurtTime { get; protected set; } = 0.3f;
-        
+
+        /// <summary>
+        ///     На каких слоях находится объект
+        /// </summary>
+        public Array<WorldLayers> Layers { get; set; } = new() {WorldLayers.Entity};
+
+        /// <summary>
+        ///     С какими слоями взаимодействует
+        /// </summary>
+        public Array<WorldLayers> LayersMask { get; set; } = new() {WorldLayers.World};
+
         #endregion
 
         #region Физические объекты
@@ -25,8 +37,8 @@ namespace SimpleGame.Scripts.Models.Entity
         public Timer HurtTimer { get; set; } = new Timer();
 
         public IInventory Inventory { get; } = new Inventory.Inventory();
+        
         #endregion
-
         
         #region Methods
         
@@ -43,7 +55,6 @@ namespace SimpleGame.Scripts.Models.Entity
             AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.JumpEndSprite, entitySpritePath + "Entity_Jump.png", false, true, 3,3);
             AnimatedSprite.Frames.LoadAnimationFrames(EntitySpriteNames.HurtSprite,entitySpritePath + "Entity_Hurt.png", true, true);
         }
-
         #endregion
     }
 }

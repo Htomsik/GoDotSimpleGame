@@ -60,7 +60,30 @@ namespace SimpleGame.Scripts.Models.Entity
         
         protected virtual void Ready()
         {
-          
+            InitializeCollisionLayers();
+        }
+
+        #endregion
+
+        #region Другое
+
+        /// <summary>
+        ///     Инициализация слоёв
+        /// </summary>
+        protected virtual void InitializeCollisionLayers()
+        {
+            Body.SetCollisionLayerBit(0, false);
+            Body.SetCollisionMaskBit(0, false);
+
+            foreach (int layer in Data.Layers)
+            {
+                Body.SetCollisionLayerBit(layer, true);
+            }
+            
+            foreach (int layer in Data.LayersMask)
+            {
+                Body.SetCollisionMaskBit(layer, true);
+            }
         }
 
         #endregion

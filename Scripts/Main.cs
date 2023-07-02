@@ -1,8 +1,8 @@
 using Godot;
-using SimpleGame.Scripts.Models.Dungeon;
 using SimpleGame.Scripts.Models.Entity.Enemy;
 using SimpleGame.Scripts.Models.HotBar;
 using SimpleGame.Scripts.Models.Inventory;
+using SimpleGame.Scripts.Models.World;
 
 
 namespace SimpleGame.Scripts;
@@ -40,6 +40,7 @@ namespace SimpleGame.Scripts;
             
             _layer.AddChild(hotbar);
             _layer.AddChild(_helper);
+            
         }
     }
 

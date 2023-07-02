@@ -1,4 +1,6 @@
 ﻿using Godot;
+using Godot.Collections;
+using SimpleGame.Scripts.Models.World;
 
 namespace SimpleGame.Scripts.Models.Hit
 {
@@ -13,6 +15,16 @@ namespace SimpleGame.Scripts.Models.Hit
         
         public float LifeTime { get; set; } = 0.1f;
         
+        
+        /// <summary>
+        ///     На каких слоях находится объект
+        /// </summary>
+        public Array<WorldLayers> Layers { get; set; } = new() {WorldLayers.Hit};
+
+        /// <summary>
+        ///     С какими слоями взаимодействует
+        /// </summary>
+        public Array<WorldLayers> LayersMask { get; set; } = new() {WorldLayers.Enemy, WorldLayers.Player};
         
         #endregion
         

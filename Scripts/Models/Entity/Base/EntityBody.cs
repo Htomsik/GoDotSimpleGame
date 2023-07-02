@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using SimpleGame.Scripts.Models.Entity.Enemy;
 using SimpleGame.Scripts.Models.Extensions;
 
 namespace SimpleGame.Scripts.Models.Entity
@@ -18,11 +19,14 @@ namespace SimpleGame.Scripts.Models.Entity
         public Action Ready { get; set; }
 
         #endregion
-
         
         #region Properties
 
-        public  TEntityData Data { get; set; }
+        public  TEntityData Data
+        { 
+            get; 
+            set; 
+        }
 
         protected readonly int JumpPower  =  16;
         

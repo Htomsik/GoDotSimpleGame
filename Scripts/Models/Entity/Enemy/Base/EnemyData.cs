@@ -1,9 +1,11 @@
 ﻿using System;
 using Godot;
+using Godot.Collections;
 using SimpleGame.Scripts.Models.Extensions;
 using SimpleGame.Scripts.Models.HotBar;
 using SimpleGame.Scripts.Models.Inventory;
 using SimpleGame.Scripts.Models.Weapon;
+using SimpleGame.Scripts.Models.World;
 
 namespace SimpleGame.Scripts.Models.Entity.Enemy
 {
@@ -61,8 +63,7 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
         
         
         #endregion
-
-
+        
         #region Физические объекты
 
         public IHotBar HotBar { get; } = new HotBar.HotBar(); 
@@ -84,6 +85,10 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
             Hp = 10000;
 
             Inventory = new Inventory.Inventory();
+
+            Layers = new Array<WorldLayers> { WorldLayers.Enemy };
+            
+            LayersMask = new Array<WorldLayers> { WorldLayers.World, WorldLayers.Player};
         }
 
         #endregion

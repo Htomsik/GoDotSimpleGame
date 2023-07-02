@@ -14,6 +14,11 @@ public class EnemyBody : EntityBody<EnemyData>
 
         return Data.Velocity.y == 0;
     }
+
+    public EnemyBody()
+    {
+       
+    }
     
     public override void Run(float runRate = 1)
     {

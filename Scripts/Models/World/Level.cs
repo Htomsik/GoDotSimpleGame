@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace SimpleGame.Scripts.Models.Dungeon
+namespace SimpleGame.Scripts.Models.World
 {
     public class Level 
     {
@@ -40,6 +40,10 @@ namespace SimpleGame.Scripts.Models.Dungeon
             
             Walls.TileSet = (TileSet)ResourceLoader.Load("res://Resources/TileSets/Wall.tres");
             GenerateLevel();
+            
+            Walls.SetCollisionLayerBit(0, false);
+            
+            Walls.SetCollisionLayerBit((int)WorldLayers.World, true);
         }
 
         #endregion

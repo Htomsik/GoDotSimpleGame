@@ -42,6 +42,9 @@ namespace SimpleGame.Scripts.Models.Hit
 
         protected virtual void Ready()
         {
+            // Инициализация слоёв
+            InitializeCollisionLayers();
+            
             // Запуск таймра жизни объекта
             Data.LifeTimer.Start(Data.LifeTime);
             Data.LifeTimer.OneShot = true;
@@ -78,6 +81,30 @@ namespace SimpleGame.Scripts.Models.Hit
         public void ChangePower(float power)
         {
             Data.DamagePower = power;
+        }
+        
+        /// <summary>
+        ///     Инициализация слоёв
+        /// </summary>
+        protected virtual void InitializeCollisionLayers()
+        {
+            Body.SetCollisionLayerBit(0, false);
+            Body.SetCollisionMaskBit(0, false);
+            
+            Data.HitBox.SetCollisionLayerBit(0, false);
+            Data.HitBox.SetCollisionMaskBit(0, false);
+
+            foreach (int layer in Data.Layers)
+            {
+                Body.SetCollisionLayerBit(layer, true);
+                Data.HitBox.SetCollisionLayerBit(layer, true);
+            }
+            
+            foreach (int layer in Data.LayersMask)
+            {
+                Body.SetCollisionMaskBit(layer, true);
+                Data.HitBox.SetCollisionMaskBit(layer, true);
+            }
         }
 
         #endregion

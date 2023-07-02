@@ -138,6 +138,22 @@ namespace SimpleGame.Scripts.Models.Entity.Enemy
 
         public HotBar.IHotBar GetHotBar() => Data.HotBar;
 
+        protected override void InitializeCollisionLayers()
+        {
+            Data.HitBox.SetCollisionLayerBit(0, false);
+            Data.HitBox.SetCollisionMaskBit(0, false);
+            
+            foreach (int layer in Data.Layers)
+            {
+                Data.HitBox.SetCollisionLayerBit(layer, true);
+            }
+            
+            foreach (int layer in Data.LayersMask)
+            {
+                Data.HitBox.SetCollisionMaskBit(layer, true);
+            }
+            base.InitializeCollisionLayers();
+        }
 
         #endregion
 
